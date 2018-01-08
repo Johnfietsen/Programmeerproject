@@ -1,7 +1,7 @@
-1 Study:  Minor Programming, University of Amsterdam
-1 Course: Programmeerproject
-1 Name:   Luc Stefelmanns
-1 ID:     10669124
+###### Study:  Minor Programming, University of Amsterdam
+###### Course: Programmeerproject
+###### Name:   Luc Stefelmanns
+###### ID:     10669124
 
 
 # Amstelhaege algorithms
