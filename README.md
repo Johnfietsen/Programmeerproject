@@ -35,7 +35,12 @@ MVP: The most important elements are the network, piechart and tabs that make it
 
 The data will be generated with Python. The data will consist of the position, value and freespace of all the houses during the entire runtime of the algorithm. The external components that will be used is the d3-tip (https://github.com/Caged/d3-tip) to implement tooltips for the visualisations. The network will be generated with help of code on blocks (https://bl.ocks.org/EfratVil/58b872b4f15a358c3a9822f5a285c5be), the other visualisations will be created with the standard d3 library.
 
-It is difficult to find a similar visualisation that combines these four elements for this purpose, but there are examples of the individual visualisations abound. These are not relevant to show here, since their cover entirely different subjects.
+It is difficult to find a similar visualisation that combines these four elements for this purpose, but there are examples of the individual visualisations abound.
+
+* Network: http://bl.ocks.org/jose187/4733747
+* Linegraph: https://bl.ocks.org/mbostock/3883245
+* Piechart: https://bl.ocks.org/mbostock/3887235
+* Rects for map: https://www.dashingd3js.com/svg-basic-shapes-and-d3js
 
 The most difficult part will be the translation from a map top a network, since the links are not yet present in the dataset. The second most difficult part will be the creation of the piechart, due to the fact that the data only has the freespace of the house in meters, not as a surface.
 
