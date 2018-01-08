@@ -14,9 +14,12 @@ When testing algorithms to solve the case of Amstelhaege, it can be difficult to
 
 ## Solution
 
-**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a piechart**
-* features
-* MVP
+**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a piechart.**
+
+In the tabs the different algorithms are represented, with one page for every algorithm. Every page has a (standard) coloured map with the houses in their Euclidian position. Next to the map the relation between the houses is interpreted as a network, with nodes representing houses and links representing closest neighbours (with a drop-down menu the number of neighbours can be chosen). The third element is a piechart that shows the percentage of the total freespace that is given to each house. The last element are line graphs representing the value of each house.
+A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and piechart. If the user clicks on a line in the linegraph, piece of the piechart, node in the network or rectangle on the map, the corresponding elements will be hightlighted in the other visualisations.
+
+The most important elements that make up the MVP are the network, piechart and tabs that make it possible to change between 
 
 
 
