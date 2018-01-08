@@ -1,10 +1,7 @@
-Study:  Minor Programming, University of Amsterdam
-
-Course: Programmeerproject
-
-Name:   Luc Stefelmanns
-
-ID:     10669124
+###### Study:  Minor Programming, University of Amsterdam
+###### Course: Programmeerproject
+###### Name:   Luc Stefelmanns
+###### ID:     10669124
 
 INLEIDING DOCUMENT
 
