@@ -15,16 +15,16 @@ When testing algorithms to solve the case of Amstelhaege, it can be difficult to
 
 ## Solution
 
-**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a piechart.**
+**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a pie chart.**
 
 In the tabs the different algorithms are represented, with one page for every algorithm. Every page consists of four visualisations:
 
 * Coloured map with the houses in their Euclidean position. 
 * Network that interprets he relation between the houses, with nodes representing houses and links representing closest neighbours (with a drop-down menu the number of neighbours can be chosen). 
-* Piechart showing the percentage of the total freespace that is given to each house. 
+* Pie chart showing the percentage of the total freespace that is given to each house. 
 * Set of line graphs representing the value of each house.
 
-A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and piechart. If the user clicks on a line in the linegraph, piece of the piechart, node in the network or rectangle on the map, the corresponding elements will be highlighted in the other visualisations.
+A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and pie chart. If the user clicks on a line in the line graph, piece of the pie chart, node in the network or rectangle on the map, the corresponding elements will be highlighted in the other visualisations.
 
 ![](doc/one_page_sketch.png)
 
@@ -39,8 +39,8 @@ It is difficult to find a similar visualisation that combines these four element
 
 * Network: http://bl.ocks.org/jose187/4733747
 * Linegraph: https://bl.ocks.org/mbostock/3883245
-* Piechart: https://bl.ocks.org/mbostock/3887235
+* Pie  chart: https://bl.ocks.org/mbostock/3887235
 * Rects for map: https://www.dashingd3js.com/svg-basic-shapes-and-d3js
 
-The most difficult part will be the translation from a map top a network, since the links are not yet present in the dataset. The second most difficult part will be the creation of the piechart, due to the fact that the data only has the freespace of the house in meters, not as a surface.
+The most difficult part will be the translation from a map top a network, since the links are not yet present in the dataset. The second most difficult part will be the creation of the pie chart, due to the fact that the data only has the freespace of the house in meters, not as a surface.
 
