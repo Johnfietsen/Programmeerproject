@@ -11,7 +11,7 @@ Problem statement
 ---
 blabla
 
----
+
 
 Solution
 ---
@@ -19,7 +19,7 @@ summary
 features
 MVP
 
----
+
 
 Prerequisites
 ---
@@ -28,4 +28,4 @@ external components
 similar visuals
 hardest parts
 
----
+
