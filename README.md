@@ -13,19 +13,19 @@ blabla
 
 
 
-Solution
----
-summary
-features
-MVP
+## Solution
+
+* summary
+* features
+* MVP
 
 
 
-Prerequisites
----
-data sources
-external components
-similar visuals
-hardest parts
+## Prerequisites
+
+* data sources
+* external components
+* similar visuals
+* hardest parts
 
 
