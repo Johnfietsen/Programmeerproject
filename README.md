@@ -10,7 +10,7 @@
 
 ## Problem statement
 
-When testing algorithms to solve the case of Amstelhaege, it can be difficult to interpret the results based on maps alone. The addition of a line graph with the score and an animation of the movement of houses can give some insight in the process of the algorithms, but do not properly show the underlying principles that ultimately determine the score achieved. What is missing are visualisations that show the relation between the houses and the distribution of freespace over the houses. This does not only enchance the understanding of the Amstelhaege case, but makes it easier to reinterpret the results for other cases that evolve around the positioning of objects in the Euclidean space.
+When testing algorithms to solve the case of Amstelhaege, it can be difficult to interpret the results based on maps alone. The addition of a line graph with the score and an animation of the movement of houses can give some insight in the process of the algorithms, but do not properly show the underlying principles that ultimately determine the score achieved. What is missing are visualisations that show the relation between the houses and the distribution of freespace over the houses. This does not only enhance the understanding of the Amstelhaege case, but makes it easier to reinterpret the results for other cases that evolve around the positioning of objects in the Euclidean space.
 
 
 ## Solution
@@ -24,7 +24,7 @@ In the tabs the different algorithms are represented, with one page for every al
 * Piechart showing the percentage of the total freespace that is given to each house. 
 * Set of line graphs representing the value of each house.
 
-A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and piechart. If the user clicks on a line in the linegraph, piece of the piechart, node in the network or rectangle on the map, the corresponding elements will be hightlighted in the other visualisations.
+A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and piechart. If the user clicks on a line in the linegraph, piece of the piechart, node in the network or rectangle on the map, the corresponding elements will be highlighted in the other visualisations.
 
 ![](doc/one_page_sketch.png)
 
