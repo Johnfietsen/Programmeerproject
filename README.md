@@ -6,21 +6,26 @@ ID:     10669124
 
 # Amstelhaege algorithms
 
----
+
 Problem statement
-
-blabla
 ---
-Solution
+blabla
 
+---
+
+Solution
+---
 summary
 features
 MVP
----
-Prerequisites
 
+---
+
+Prerequisites
+---
 data sources
 external components
 similar visuals
 hardest parts
+
 ---
