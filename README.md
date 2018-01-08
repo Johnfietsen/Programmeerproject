@@ -26,6 +26,8 @@ In the tabs the different algorithms are represented, with one page for every al
 
 A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and piechart. If the user clicks on a line in the linegraph, piece of the piechart, node in the network or rectangle on the map, the corresponding elements will be hightlighted in the other visualisations.
 
+[](doc/one_page_sketch.png)
+
 MVP: The most important elements are the network, piechart and tabs that make it possible to change between algorithms.
 
 
