@@ -18,10 +18,10 @@ In the tabs the different algorithms are represented, with one page for every al
 
 * Coloured map with the houses in their Euclidean position.
 * Network that interprets he relation between the houses, with nodes representing houses and links representing closest neighbours (with a drop-down menu the number of neighbours can be chosen).
-* Pie chart showing the percentage of the total freespace that is given to each house.
-* Set of line graphs representing the value of each house.
+* Sunburst diagram that shows how the total area is used.
+* Stacked area chart to visualise the score achieved.
 
-A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and pie chart. If the user clicks on a line in the line graph, piece of the pie chart, node in the network or rectangle on the map, the corresponding elements will be highlighted in the other visualisations.
+A slider makes it possible to walk trough time, to follow the movement of houses and the impact this has on the network and sunburst diagram. If the user clicks on an area in the stacked chart, piece of the sunburst, node in the network or rectangle on the map, the corresponding elements will be highlighted in the other visualisations.
 
 ![](doc/sketch_3.png)
 
@@ -35,8 +35,8 @@ The data will be generated with Python. The data will consist of the position, v
 It is difficult to find a similar visualisation that combines these four elements for this purpose, but there are examples of the individual visualisations abound.
 
 * Network: http://bl.ocks.org/jose187/4733747
-* Linegraph: https://bl.ocks.org/mbostock/3883245
-* Pie  chart: https://bl.ocks.org/mbostock/3887235
+* Stacked area chart: https://bl.ocks.org/mbostock/3885211
+* Sunburst diagram: https://bl.ocks.org/kerryrodden/7090426
 * Rects for map: https://www.dashingd3js.com/svg-basic-shapes-and-d3js
 
-The most difficult part will be the translation from a map top a network, since the links are not yet present in the dataset. The second most difficult part will be the creation of the pie chart, due to the fact that the data only has the freespace of the house in meters, not as a surface.
+The most difficult part will be the translation from a map top a network, since the links are not yet present in the dataset. The second most difficult part will be the creation of the sunburst diagram, due to the fact that the data only has the freespace of the house in meters, not as a surface.
