@@ -12,7 +12,7 @@ When testing algorithms to solve the case of Amstelhaege, it can be difficult to
 
 ## Solution
 
-**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a pie chart.**
+**This visualisation solves the lack of information by visualising the houses on the map as a network and the distribution of freespace as a sunburst diagram.**
 
 In the tabs the different algorithms are represented, with one page for every algorithm. Every page consists of four visualisations:
 
