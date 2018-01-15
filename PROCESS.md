@@ -5,8 +5,8 @@
 ###### Name:        Luc Stefelmanns
 ###### Student nr.: 10669124
 
-#### Week 2
-##### Monday
+## Week 2
+### Monday
 Done:
 * JSON file for network completed.
 
