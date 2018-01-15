@@ -1,4 +1,4 @@
-## Progress report
+# Progress report
 
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
