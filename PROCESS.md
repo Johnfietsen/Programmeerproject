@@ -22,6 +22,7 @@ Decisions:
 * First the network and map will be made, then the stacked area chart and the last thing will be the sunburst.
 
 Comments:
+
 Today was not a productive day. I also have the feeling that I'm falling behind compared to other people because of my struggle with the JSON files for the visualizations.
 
 

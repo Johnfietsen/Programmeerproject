@@ -45,6 +45,7 @@ def CSVtoJSON(algorithm):
 	tmp_value =			[]
 
 	network =			[]
+	colour_map = 		[]
 
 	for line in freespaces:
 		tmp_freespaces.append(line.split(','))
@@ -54,6 +55,9 @@ def CSVtoJSON(algorithm):
 
 	for line in location:
 		tmp_location.append(line.split(','))
+	for i in range(len(tmp_location)):
+		for j in range(len(tmp_location[i])):
+			tmp_location[i][j] = tmp_location[i][j].split(';')
 
 	for line in neighbours:
 		tmp_neighbours.append(line.split(','))
@@ -77,6 +81,7 @@ def CSVtoJSON(algorithm):
 		tmp_value.append(line.split(','))
 
 
+	# store nodes for network
 	for i in range(len(tmp_id)):
 
 		network.append({'nodes' :	[],
@@ -92,7 +97,7 @@ def CSVtoJSON(algorithm):
 				network[i]['nodes'].append({'id' :		tmp_id[i][j],
 											'type' :	tmp_type[i][j]})
 
-
+	# store links for network
 	for i in range(len(tmp_id)):
 
 		for l in range(MAX_LINKS):
@@ -110,16 +115,28 @@ def CSVtoJSON(algorithm):
 									'dist' :	float(tmp_freespaces[i][j][k])
 									})
 
-	# for line in network:
-	# 	for link in line['links']:
-	# 		print(link)
 
-	JSON_algorithm = {'network' : network}
+	# store locations for map
+	for i in range(len(tmp_id)):
+
+		colour_map.append([])
+
+		for j in range(len(tmp_id[i])):
+
+			if tmp_id[i][j] != '\n':
+				colour_map[i].append({'x' :		float(tmp_location[i][j][0]),
+									  'y' :		float(tmp_location[i][j][1]),
+									  'width' :	float(tmp_size[i][j][0]),
+									  'height' :float(tmp_size[i][j][1])})
+
+	JSON_algorithm = {'network' : 	network,
+					  'map' : 		colour_map}
 
 	JSON_data = json.loads(json.dumps(JSON_algorithm))
 
 	with open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-			  'Programmeerproject/JSON/' + algorithm + '.json', 'w') as outfile:
+			  'Programmeerproject/scripts/' + algorithm + '.json', 'w') \
+		as outfile:
 	    json.dump(JSON_data, outfile)
 
 
