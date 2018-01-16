@@ -1,12 +1,18 @@
-# Progress report
+
+# Progress book
 
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
 ###### Name:        Luc Stefelmanns
 ###### Student nr.: 10669124
 
+
+
 ## Week 2
+
+
 ### Monday
+
 #### Done:
 * JSON file for network completed.
 
@@ -24,8 +30,40 @@
 #### Comments:
 Today was not a productive day. I also have the feeling that I'm falling behind compared to other people because of my struggle with the JSON files for the visualizations.
 
+### Todo's tomorrow:
+* Network functioning.
+* Slider functioning.
+* JSON for map.
 
-##### Tuesday
+
+### Tuesday
+
+#### Done:
+* Network working.
+* Slider alpha version.
+* JSON for coloured map.
+
+#### Not done but planned:
+* Slider fully functional.
+
+#### Problems encountered:
+* Working with the location of the SVGs.
+* Creating an update function for the network.
+* Fully integrating the functions of the slider.
+
+#### Decisions:
+* JSON structure of network is correct, and the same 'tactic' will be applied for the coming two JSON files (for the stacked area chart and sunburst diagram).
+* Order of work from now: slider finished, map, stacked area chart, sunburst diagram, tabs.
+
+#### Comments:
+Today went okay. The creation of the slider was more difficult than expected, and there was some hassle with integrating online code. I feel confident now the JSON file seems to be functioning for the network, but need to give attention to the infra and data structure from now on to avoid problems later.
+
+#### Todo's tomorrow:
+* Slider fully functioning.
+* Coloured map functioning.
+* JSON for stacked area chart.
+
+
 ##### Wednesday
 ##### Thursday
 ##### Friday
