@@ -12,6 +12,8 @@ var marginSlider = {top: 20, right: 20, bottom: 50, left: 50},
 	heightSlider = 100 - marginSlider.top - marginSlider.bottom;
 
 
+
+
 var networkSVG = d3.select("head").append("svg")
 					.attr("width", widthNetwork)
 					.attr("height", heightNetwork)
@@ -26,59 +28,59 @@ var sliderSVG = d3.select("head").append("svg")
 					.attr("width", widthSlider)
 					.attr("height", heightSlider)
 					.attr("id", "slider");
-
-// in een div stoppen
-
-// var svg = d3.select("svg"),
-//     margin = {right: 50, left: 50},
-//     width = +svg.attr("width") - margin.left - margin.right,
-//     height = +svg.attr("height");
-
-var x = d3.scaleLinear()
-    .domain([0, 10])
-    .range([0, widthSlider])
-    .clamp(true);
-
-var slider = sliderSVG.append("g")
-    .attr("class", "slider")
-    .attr("transform", "translate(" + marginSlider.left + "," +
-								  heightSlider / 2 + ")");
-
-slider.append("line")
-    .attr("class", "track")
-    .attr("x1", x.range()[0])
-    .attr("x2", x.range()[1])
-	.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-inset")
-	.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-overlay")
-    .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() { hue(x.invert(d3.event.x)); }));
-
-slider.insert("g", ".track-overlay")
-    .attr("class", "ticks")
-    .attr("transform", "translate(0," + 18 + ")")
-	.selectAll("text")
-	.data(x.ticks(20))
-	.enter().append("text")
-    .attr("x", x)
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d; });
-
-var handle = slider.insert("circle", ".track-overlay")
-    .attr("class", "handle")
-    .attr("r", 9);
-
-// slider.transition() // Gratuitous intro!
-//     .duration(750)
-//     .tween("hue", function() {
-//       var i = d3.interpolate(0, 70);
-//       return function(t) { hue(i(t)); };
-//     });
-
-function hue(h) {
-	console.log(Math.round(h));
- 	handle.attr("cx", x(h));
- 	createNetwork(Math.round(h), 1);
-}
+//
+// // in een div stoppen
+//
+// // var svg = d3.select("svg"),
+// //     margin = {right: 50, left: 50},
+// //     width = +svg.attr("width") - margin.left - margin.right,
+// //     height = +svg.attr("height");
+//
+// var x = d3.scaleLinear()
+//     .domain([0, 10])
+//     .range([0, widthSlider])
+//     .clamp(true);
+//
+// var slider = sliderSVG.append("g")
+//     .attr("class", "slider")
+//     .attr("transform", "translate(" + marginSlider.left + "," +
+// 								  heightSlider / 2 + ")");
+//
+// slider.append("line")
+//     .attr("class", "track")
+//     .attr("x1", x.range()[0])
+//     .attr("x2", x.range()[1])
+// 	.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+//     .attr("class", "track-inset")
+// 	.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+//     .attr("class", "track-overlay")
+//     .call(d3.drag()
+//         .on("start.interrupt", function() { slider.interrupt(); })
+//         .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+//
+// slider.insert("g", ".track-overlay")
+//     .attr("class", "ticks")
+//     .attr("transform", "translate(0," + 18 + ")")
+// 	.selectAll("text")
+// 	.data(x.ticks(20))
+// 	.enter().append("text")
+//     .attr("x", x)
+//     .attr("text-anchor", "middle")
+//     .text(function(d) { return d; });
+//
+// var handle = slider.insert("circle", ".track-overlay")
+//     .attr("class", "handle")
+//     .attr("r", 9);
+//
+// // slider.transition() // Gratuitous intro!
+// //     .duration(750)
+// //     .tween("hue", function() {
+// //       var i = d3.interpolate(0, 70);
+// //       return function(t) { hue(i(t)); };
+// //     });
+//
+// function hue(h) {
+// 	console.log(Math.round(h));
+//  	handle.attr("cx", x(h));
+//  	createNetwork(Math.round(h), 1);
+// }
