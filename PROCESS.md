@@ -1,5 +1,5 @@
 
-# Progress book
+# Progress Book
 
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
