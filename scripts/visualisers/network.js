@@ -6,21 +6,17 @@ var simulation = d3.forceSimulation()
     				.force("center", d3.forceCenter(widthNetwork / 2,
 													heightNetwork / 2));
 
-function createNetwork(iteration, nrLinks) {
+function createNetwork(iteration, nrLinks, algorithm) {
 
-	d3.selectAll(".links").remove();
-	d3.selectAll(".nodes").remove();
-	d3.selectAll(".labels").remove();
-
-	d3.json("hillclimber.json", function(error, hillclimber) {
+	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
 		if (error) throw error;
 
 		// console.log(hillclimber.network[iteration].links);
 
-		hillclimber.network[iteration].links[nrLinks].forEach(function(d){
-			d.source = d.source;
-			d.target = d.target;
-		});
+		// hillclimber.network[iteration].links[nrLinks].forEach(function(d){
+		// 	d.source = d.source;
+		// 	d.target = d.target;
+		// });
 
 		var link = networkSVG.append("g")
 					.attr("class", "links")
@@ -73,3 +69,35 @@ function createNetwork(iteration, nrLinks) {
 		}
 	});
 };
+
+// source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
+function updateNetwork(iteration, nrLinks, algorithm) {
+
+	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
+		if (error) throw error;
+
+	var network = d3.select("body")
+					.select("#network")
+					.transition();
+
+	// d3.selectAll(".links").remove();
+
+	network.selectAll(".links")
+			.duration(200)
+			.attr("x1", function(d) { return d.source.x; })
+			.attr("y1", function(d) { return d.source.y; })
+			.attr("x2", function(d) { return d.target.x; })
+			.attr("y2", function(d) { return d.target.y; });
+
+	// network.select(".line")   // change the line
+	//         .duration(750)
+	//         .attr("d", valueline(data));
+    // network.select(".x.axis") // change the x axis
+	//         .duration(750)
+	//         .call(xAxis);
+    // network.select(".y.axis") // change the y axis
+	//         .duration(750)
+	//         .call(yAxis);
+
+	})
+}

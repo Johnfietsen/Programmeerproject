@@ -64,7 +64,31 @@ Today went okay. The creation of the slider was more difficult than expected, an
 * JSON for stacked area chart.
 
 
-##### Wednesday
+### Wednesday
+
+#### Done:
+* SVGs implementation.
+* Script for coloured map frame.
+
+#### Not done but planned:
+* Slider fully functional.
+* Coloured map functioning.
+* JSON for stacked area chart.
+
+#### Problems encountered:
+* Feeling under the weather
+
+#### Decisions:
+* Will use divs to divide the screen in four area's.
+
+#### Comments:
+I was feeling under the weather and went home earlier, where I lay in bed. It was therefor not a productive day. I also notice that working with HTML is not second nature for me, so the use of divs won't be easy.
+
+#### Todo's tomorrow:
+* Slider fully functioning.
+* Coloured map functioning.
+* JSON for stacked area chart.
+
 ##### Thursday
 ##### Friday
 ##### Weekend
