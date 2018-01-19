@@ -17,11 +17,6 @@ function createNetwork(iteration, nrLinks, algorithm) {
 	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
 		if (error) throw error;
 
-		// hillclimber.network[iteration].links[nrLinks].forEach(function(d){
-		// 	d.source = d.source;
-		// 	d.target = d.target;
-		// });
-
 		var networkSVG = d3.select("body").select("#network");
 
 		var link = networkSVG.append("g")
@@ -84,40 +79,36 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 
 	var node = d3.selectAll(".nodes");
 	var link = d3.selectAll(".links");
+	var networkSVG = d3.select("#network");
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
 		if (error) throw error;
 
-		// // Apply the general update pattern to the nodes.
-	    // node = node.data(hillclimber.network[iteration].nodes,
-		// 				 function(d) { console.log(d);
-		// 					 return d.id;});
-	    // node.exit().remove();
-	    // node = node.enter().append("circle").attr("fill", function(d) {
-		// 					return colour(d.type); }).attr("r", 10).merge(node);
+		link.transition()
+			.remove()
+			.data(hillclimber.network[iteration].links[nrLinks])
 
-	    // Apply the general update pattern to the links.
-	    link = link.data(hillclimber.network[iteration].links[nrLinks],
-						 function(d) { console.log(d)
-									return d.source.id + "-" + d.target.id; });
-	    link.exit().remove();
-	    link = link.enter().append("line").merge(link);
 
-	    // Update and restart the simulation.
-	    simulation.nodes(hillclimber.network[iteration].nodes);
-	    simulation.force("link").links(hillclimber.network[iteration].links[nrLinks]);
-	    simulation.alpha(1).restart();
+		// var newLink = networkSVG.append("g")
+		// 				.attr("class", "links")
+		// 				.style("stroke", "#aaa")
+		//                 .selectAll("line")
+		//                 .data(hillclimber.network[iteration].links[nrLinks])
+		//                 .enter().append("line");
+
+		// simulation
+		// 	.nodes(hillclimber.network[iteration].nodes)
+		// 	.on("tick", ticked);
+
+		simulation.force("link")
+			.links(hillclimber.network[iteration].links[nrLinks]);
+
+		// function ticked() {
+		// 	link
+		// 		.attr("x1", function(d) { return d.source.x; })
+		// 		.attr("y1", function(d) { return d.source.y; })
+		// 		.attr("x2", function(d) { return d.target.x; })
+	    //     	.attr("y2", function(d) { return d.target.y; });
+		// }
 	})
-
-
-
-
-	// d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
-	// 	if (error) throw error;
-    //
-	// 	d3.selectAll(".links")
-	// 		.transition()
-	// 		.attr("delay", 200)
-	// 		.data(hillclimber.network[iteration].links[nrLinks]);
-	// })
 }

@@ -19,19 +19,22 @@ window.onload = function(){
 						.attr("height", heightNetwork)
 						.attr("id", "network");
 
-	// var mapSVG = d3.select("body").append("svg")
-	// 					.attr("width", widthMap)
-	// 					.attr("height", heightMap)
-	// 					.attr("id", "map");
 
 	var sliderSVG = d3.select("body").append("svg")
 						.attr("width", widthSlider)
 						.attr("height", heightSlider)
 						.attr("id", "slider");
 
+	var mapSVG = d3.select("body").append("svg")
+						.attr("width", widthMap)
+						.attr("height", heightMap)
+						.attr("id", "map");
+
 	// in een div stoppen
 
 	createNetwork(0, 3, "hillclimber");
+
+	createMap(0, "hillclimber");
 
 
 	// var svg = d3.select("svg"),
@@ -87,8 +90,8 @@ window.onload = function(){
 	function hue(h) {
 
 	 	handle.attr("cx", x(h));
-		createNetwork(Math.round(h), 3, "hillclimber");
-		// updateNetwork(Math.round(h), 3, "hillclimber");
-
+		// createNetwork(Math.round(h), 3, "hillclimber");
+		updateNetwork(Math.round(h), 3, "hillclimber");
+		updateMap(Math.round(h), "hillclimber");
 	}
 };

@@ -127,7 +127,8 @@ def CSVtoJSON(algorithm):
 				colour_map[i].append({'x' :		float(tmp_location[i][j][0]),
 									  'y' :		float(tmp_location[i][j][1]),
 									  'width' :	float(tmp_size[i][j][0]),
-									  'height' :float(tmp_size[i][j][1])})
+									  'height' :float(tmp_size[i][j][1]),
+									  'type' :	tmp_type[i][j]})
 
 	JSON_algorithm = {'network' : 	network,
 					  'map' : 		colour_map}
