@@ -89,6 +89,29 @@ I was feeling under the weather and went home earlier, where I lay in bed. It wa
 * Coloured map functioning.
 * JSON for stacked area chart.
 
-##### Thursday
+### Thursday
+
+
+#### Done:
+* Network improved.
+* Start update function for slider.
+
+#### Not done but planned:
+* Slider fully functional.
+* Coloured map functioning.
+* JSON for stacked area chart.
+
+#### Problems encountered:
+* Due to the collapse of the roof, a lot of time was wasted travelling. In the afternoon I had meetings so I barely had time to code.
+
+#### Decisions:
+* I have to do some work in the weekend in order to keep on track.
+
+#### Comments:
+None.
+
+#### Todo's tomorrow:
+* Slider fully functioning.
+
 ##### Friday
 ##### Weekend
