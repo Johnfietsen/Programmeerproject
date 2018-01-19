@@ -7,10 +7,9 @@ var marginMap = {top: 20, right: 20, bottom: 50, left: 50},
 	widthMap = 1200 - marginMap.left - marginMap.right,
 	heightMap = 900 - marginMap.top - marginMap.bottom;
 
-var marginSlider = {top: 20, right: 20, bottom: 50, left: 50},
+var marginSlider = {top: 20, right: 20, bottom: 60, left: 50},
 	widthSlider = 1200 - marginSlider.left - marginSlider.right,
-	heightSlider = 100 - marginSlider.top - marginSlider.bottom;
-
+	heightSlider = 200 - marginSlider.top - marginSlider.bottom;
 
 
 window.onload = function(){
@@ -32,6 +31,9 @@ window.onload = function(){
 
 	// in een div stoppen
 
+	createNetwork(0, 3, "hillclimber");
+
+
 	// var svg = d3.select("svg"),
 	//     margin = {right: 50, left: 50},
 	//     width = +svg.attr("width") - margin.left - margin.right,
@@ -39,7 +41,7 @@ window.onload = function(){
 
 	var x = d3.scaleLinear()
 	    .domain([0, 10])
-	    .range([0, widthSlider])
+	    .range([0, widthSlider - 2 * marginSlider.left])
 	    .clamp(true);
 
 	var slider = sliderSVG.append("g")
@@ -51,9 +53,11 @@ window.onload = function(){
 	    .attr("class", "track")
 	    .attr("x1", x.range()[0])
 	    .attr("x2", x.range()[1])
-		.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+		.select(function() {
+					return this.parentNode.appendChild(this.cloneNode(true)); })
 	    .attr("class", "track-inset")
-		.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+		.select(function() {
+					return this.parentNode.appendChild(this.cloneNode(true)); })
 	    .attr("class", "track-overlay")
 	    .call(d3.drag()
 	        .on("start.interrupt", function() { slider.interrupt(); })
@@ -63,7 +67,7 @@ window.onload = function(){
 	    .attr("class", "ticks")
 	    .attr("transform", "translate(0," + 18 + ")")
 		.selectAll("text")
-		.data(x.ticks(20))
+		.data(x.ticks(10))
 		.enter().append("text")
 	    .attr("x", x)
 	    .attr("text-anchor", "middle")
@@ -83,6 +87,8 @@ window.onload = function(){
 	function hue(h) {
 
 	 	handle.attr("cx", x(h));
-	 	createNetwork(Math.round(h), 1, "hillclimber");
+		createNetwork(Math.round(h), 3, "hillclimber");
+		// updateNetwork(Math.round(h), 3, "hillclimber");
+
 	}
 };
