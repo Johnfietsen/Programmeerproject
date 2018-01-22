@@ -1,6 +1,6 @@
 # Amstelhaege algorithms
 
-https://Johnfietsen.github.io/Programmeerproject
+###### GitHub Pages: https://Johnfietsen.github.io/Programmeerproject
 
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
