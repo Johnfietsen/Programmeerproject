@@ -11,6 +11,9 @@ var marginSlider = {top: 20, right: 20, bottom: 60, left: 50},
 	widthSlider = 1200 - marginSlider.left - marginSlider.right,
 	heightSlider = 200 - marginSlider.top - marginSlider.bottom;
 
+var marginStacked = {top: 20, right: 20, bottom: 60, left: 50},
+	widthStacked = 1200 - marginStacked.left - marginStacked.right,
+	heightStacked = 200 - marginStacked.top - marginStacked.bottom;
 
 window.onload = function(){
 
@@ -19,6 +22,10 @@ window.onload = function(){
 						.attr("height", heightNetwork)
 						.attr("id", "network");
 
+	var stackedSVG = d3.select("body").append("svg")
+						.attr("width", widthStacked)
+						.attr("height", heightStacked)
+						.attr("id", "stacked");
 
 	var sliderSVG = d3.select("body").append("svg")
 						.attr("width", widthSlider)
@@ -36,11 +43,7 @@ window.onload = function(){
 
 	createMap(0, "hillclimber");
 
-
-	// var svg = d3.select("svg"),
-	//     margin = {right: 50, left: 50},
-	//     width = +svg.attr("width") - margin.left - margin.right,
-	//     height = +svg.attr("height");
+	createStackedChart("hillclimber");
 
 	var x = d3.scaleLinear()
 	    .domain([0, 10])

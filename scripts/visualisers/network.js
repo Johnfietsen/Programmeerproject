@@ -58,9 +58,8 @@ function createNetwork(iteration, nrLinks, algorithm) {
 
 			node
 	        	.attr("r", 10)
-	        	// .style("fill", "steelblue")
-	        	// .style("stroke", "#969696")
-	        	.style("stroke-width", "0px")
+	        	.style("stroke", "#ffffff")
+	        	.style("stroke-width", "4px")
 	        	.attr("cx", function(d) { return d.x+2; })
 	        	.attr("cy", function(d) { return d.y-2; });
 
@@ -84,17 +83,15 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
 		if (error) throw error;
 
-		link.transition()
-			.remove()
-			.data(hillclimber.network[iteration].links[nrLinks])
+		// link.transition()
+		// 	.remove()
 
-
-		// var newLink = networkSVG.append("g")
-		// 				.attr("class", "links")
-		// 				.style("stroke", "#aaa")
-		//                 .selectAll("line")
-		//                 .data(hillclimber.network[iteration].links[nrLinks])
-		//                 .enter().append("line");
+		var newLink = networkSVG.append("g")
+						.attr("class", "links")
+						.style("stroke", "#aaa")
+		                .selectAll("line")
+		                .data(hillclimber.network[iteration].links[nrLinks])
+		                .enter().append("line");
 
 		// simulation
 		// 	.nodes(hillclimber.network[iteration].nodes)
@@ -112,3 +109,16 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 		// }
 	})
 }
+
+// function updateNetwork(iteration, nrLinks, algorithm) {
+//
+// 	var newNetwork = d3.select("#network").transition();
+//
+// 	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
+// 		if (error) throw error;
+//
+// 		newNetwork.select(".links")
+// 					.data(hillclimber.network[iteration].links[nrLinks])
+// 					.duration(200);
+// 	});
+// }

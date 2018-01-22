@@ -15,25 +15,25 @@ MAX_LINKS = 10
 def CSVtoJSON(algorithm):
 
 	freespaces = 	open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/freespaces.csv', 'r')
 	location =		open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/location.csv', 'r')
 	neighbours =	open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/neighbours.csv', 'r')
 	self_id =		open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/self_id.csv', 'r')
 	size =			open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/size.csv', 'r')
 	self_type =		open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/type.csv', 'r')
 	value =			open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-						 'Programmeerproject/data/' + algorithm + \
+						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/value.csv', 'r')
 
 	tmp_freespaces =	[]
@@ -46,6 +46,8 @@ def CSVtoJSON(algorithm):
 
 	network =			[]
 	colour_map = 		[]
+	stacked_chart =		[]
+
 
 	for line in freespaces:
 		tmp_freespaces.append(line.split(','))
@@ -81,7 +83,7 @@ def CSVtoJSON(algorithm):
 		tmp_value.append(line.split(','))
 
 
-	# store nodes for network
+	# store nodes and types for network
 	for i in range(len(tmp_id)):
 
 		network.append({'nodes' :	[],
@@ -116,7 +118,7 @@ def CSVtoJSON(algorithm):
 									})
 
 
-	# store locations for map
+	# store locations, sizes, id and types for map
 	for i in range(len(tmp_id)):
 
 		colour_map.append([])
@@ -128,15 +130,33 @@ def CSVtoJSON(algorithm):
 									  'y' :		float(tmp_location[i][j][1]),
 									  'width' :	float(tmp_size[i][j][0]),
 									  'height' :float(tmp_size[i][j][1]),
-									  'type' :	tmp_type[i][j]})
+									  'type' :	tmp_type[i][j],
+									  'id' : 	tmp_id[i][j]})
+
+
+	# store values and types for stacked area chart
+	for i in range(len(tmp_id)):
+
+		stacked_chart.append([])
+
+		for j in range(len(tmp_id[i])):
+
+			if tmp_id[i][j] != '\n':
+				stacked_chart[i].append({'value' :	float(tmp_value[i][j]),
+										 'type' :	tmp_type[i][j],
+										 'id' :		tmp_id[i][j],
+										 'i': 		i})
+
+
 
 	JSON_algorithm = {'network' : 	network,
-					  'map' : 		colour_map}
+					  'map' : 		colour_map,
+					  'stacked' : 	stacked_chart}
 
 	JSON_data = json.loads(json.dumps(JSON_algorithm))
 
 	with open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
-			  'Programmeerproject/scripts/' + algorithm + '.json', 'w') \
+			  'Programmeerproject/data/json/' + algorithm + '.json', 'w') \
 		as outfile:
 	    json.dump(JSON_data, outfile)
 
