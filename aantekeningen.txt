@@ -1,0 +1,24 @@
+var newLine = d3.select("#chart").transition();
+newLine.select(".lines")
+				.duration(500)
+				.attr("d", line(lineData))
+				.attr("stroke", "red")
+				.attr("fill", "none");
+			newLine.select(".x.axis")
+				.duration(500)
+				.call(xAxis);
+			newLine.select(".y.axis")
+				.duration(500)
+				.call(yAxis);
+
+
+
+merge
+
+exitRemove()
+
+transition()
+
+Z index voor volgorde
+
+z index d3
