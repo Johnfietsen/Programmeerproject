@@ -1,7 +1,6 @@
 # Amstelhaege algorithms
 
 ###### GitHub Pages: https://Johnfietsen.github.io/Programmeerproject
-
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
 ###### Name:        Luc Stefelmanns
