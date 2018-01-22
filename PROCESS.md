@@ -132,6 +132,37 @@ None.
 #### Comments:
 None.
 
-#### Todo's monday:
+#### Todo's Monday:
 * Slider (finally) fully functioning.
 * Stacked area chart.
+
+
+
+## Week 3
+
+
+### Monday
+
+#### Done:
+* Update function for network fixed.
+* JSON for stacked area chart.
+* Basis for stacked area chart.
+* GitHub pages.
+
+#### Not done but planned:
+* Stacked area chart fully functional.
+
+#### Problems encountered:
+* The transition function is difficult to understand.
+* Lost track of variables in network script, so time was wasted when working on the update function.
+
+#### Decisions:
+* The focus should lie with proper update functions for all visualizations, since the slider actually does its job.
+
+#### Comments:
+Today was fine. I could restructure some of the code, and the slider is actually working fine, it's just that the update functions can be difficult sometimes.
+
+### Todo's tomorrow:
+* Transition for coloured map.
+* Stacked area chart fully functional.
+* Partitions with divs.
