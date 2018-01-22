@@ -2,9 +2,7 @@
 
 var FACTOR = 3;
 
-var colour = d3.scaleOrdinal()
-        		.range(["yellow", "orange", "red", "black"])
-        		.domain(["one_family", "bungalow", "mansion", "side"]);
+
 
 function createMap(iteration, algorithm) {
 
