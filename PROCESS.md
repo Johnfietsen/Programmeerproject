@@ -89,8 +89,8 @@ I was feeling under the weather and went home earlier, where I lay in bed. It wa
 * Coloured map functioning.
 * JSON for stacked area chart.
 
-### Thursday
 
+### Thursday
 
 #### Done:
 * Network improved.
@@ -113,5 +113,25 @@ None.
 #### Todo's tomorrow:
 * Slider fully functioning.
 
-##### Friday
-##### Weekend
+
+### Friday
+
+#### Done:
+* Coloured map creation.
+* Update function for map.
+
+#### Not done but planned:
+* Slider fully functional.
+
+#### Problems encountered:
+* The slider works, but the update functions are not working properly. I have to try some things with transition.
+
+#### Decisions:
+* I will ask for advice on the slider.
+
+#### Comments:
+None.
+
+#### Todo's monday:
+* Slider (finally) fully functioning.
+* Stacked area chart.
