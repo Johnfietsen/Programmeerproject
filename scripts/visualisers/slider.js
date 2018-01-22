@@ -13,7 +13,11 @@ var marginSlider = {top: 20, right: 20, bottom: 60, left: 50},
 
 var marginStacked = {top: 20, right: 20, bottom: 60, left: 50},
 	widthStacked = 1200 - marginStacked.left - marginStacked.right,
-	heightStacked = 200 - marginStacked.top - marginStacked.bottom;
+	heightStacked = 900 - marginStacked.top - marginStacked.bottom;
+
+var colour = d3.scaleOrdinal()
+        		.range(["yellow", "orange", "red", "black"])
+        		.domain(["one_family", "bungalow", "mansion", "side"]);
 
 window.onload = function(){
 
