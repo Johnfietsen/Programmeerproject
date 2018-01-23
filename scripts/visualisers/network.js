@@ -20,7 +20,7 @@ function ticked() {
 
 	node
 		.attr("r", 10)
-		.style("stroke", "#ffffff")
+		.style("stroke", "white")
 		.style("stroke-width", "4px")
 		.attr("cx", function(d) { return d.x+2; })
 		.attr("cy", function(d) { return d.y-2; });
@@ -74,7 +74,7 @@ function createNetwork(iteration, nrLinks, algorithm) {
 // source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
 function updateNetwork(iteration, nrLinks, algorithm) {
 
-	var networkSVG = d3.select("#network")
+	var networkSVG = d3.select("#network");
 	// networkSVG.transition().duration(200);
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {

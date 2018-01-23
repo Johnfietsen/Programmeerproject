@@ -7,6 +7,7 @@
 
 import csv
 import json
+import numpy
 
 
 MAX_LINKS = 10
@@ -47,8 +48,10 @@ def CSVtoJSON(algorithm):
 	network =			[]
 	colour_map = 		[]
 	stacked_chart =		[]
+	sunburst =			[]
 
 
+	# seperate all the csv values
 	for line in freespaces:
 		tmp_freespaces.append(line.split(','))
 	for i in range(len(tmp_freespaces)):
@@ -114,8 +117,7 @@ def CSVtoJSON(algorithm):
 						network[i]['links'][l].append({
 									'source' :	int(tmp_id[i][j]),
 									'target' :	int(tmp_neighbours[i][j][k]),
-									'dist' :	float(tmp_freespaces[i][j][k])
-									})
+									'dist' :	float(tmp_freespaces[i][j][k])})
 
 
 	# store locations, sizes, id and types for map
@@ -134,24 +136,144 @@ def CSVtoJSON(algorithm):
 									  'id' : 	tmp_id[i][j]})
 
 
-	# store values and types for stacked area chart
+	# store values, types, id and iteration for stacked area chart
+	for j in range(len(tmp_id[len(tmp_id) - 1])):
+
+		stacked_chart.append({'id' :		tmp_id[len(tmp_id) - 1][j],
+						   	  'type' :		tmp_type[len(tmp_id) - 1][j],
+						   	  'values' :	[]})
+
 	for i in range(len(tmp_id)):
 
-		stacked_chart.append([])
+		for j in range(len(tmp_id[i])):
+
+			for house in stacked_chart:
+
+				if tmp_id[i][j] == house['id'] and tmp_id[i][j] != '\n':
+
+					house['values'].append(tmp_value[i][j])
+    #
+    #
+    #
+	# for i in range(len(tmp_id)):
+    #
+	# 	stacked_chart.append([])
+    #
+	# 	for j in range(len(tmp_id[i])):
+    #
+	# 		if tmp_id[i][j] != '\n':
+	# 			stacked_chart[i].append({'value' :	float(tmp_value[i][j]),
+	# 									 'type' :	tmp_type[i][j],
+	# 									 'id' :		tmp_id[i][j],
+	# 									 'i': 		int(i)})
+    #
+
+
+	# store structure for sunburst
+	for i in range(len(tmp_id)):
+
+		summy = 0
+
+		sunburst.append({'name' : 		'map',
+						 'children' :	[]})
+
+		sunburst[i]['children'].append({'name' : 		'build',
+							 'colour' :		'black',
+							'children' :	[{'name' :		'one_family',
+							 				  'colour' :	'yellow',
+											  'children' :	[]},
+											 {'name' :		'bungalow',
+											  'colour' :	'orange',
+											  'children' :	[]},
+											 {'name' :		'mansion',
+											  'colour' :	'red',
+											  'children' :	[]}]})
+
+		sunburst[i]['children'].append({'name' :		'freespace',
+							 'colour' :		'blue',
+						 	'children' :	[{'name' :		'one_family',
+							 				  'colour' :	'yellow',
+											  'children' :	[]},
+											 {'name' :		'bungalow',
+											  'colour' :	'orange',
+											  'children' :	[]},
+											 {'name' :		'mansion',
+											  'colour' :	'red',
+											  'children' :	[]}]})
 
 		for j in range(len(tmp_id[i])):
 
 			if tmp_id[i][j] != '\n':
-				stacked_chart[i].append({'value' :	float(tmp_value[i][j]),
-										 'type' :	tmp_type[i][j],
-										 'id' :		tmp_id[i][j],
-										 'i': 		i})
+
+				freespace = numpy.pi * numpy.power(float(tmp_freespaces[i][j][0]), 2)
+				freespace += 2 * float(tmp_size[i][j][0]) * \
+								 float(tmp_freespaces[i][j][0])
+				freespace += 2 * float(tmp_size[i][j][1]) * \
+								 float(tmp_freespaces[i][j][0])
+
+				size = float(tmp_size[i][j][0]) * float(tmp_size[i][j][1])
+
+				summy += freespace + size
+
+				if tmp_type[i][j] == 'one_family':
+
+					sunburst[i]['children'][0]['children'][0]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	size,
+													'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][1]['children'][0]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	freespace,
+													'type' :	tmp_type[i][j]})
+
+				elif tmp_type[i][j] == 'bungalow':
+
+					sunburst[i]['children'][0]['children'][1]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	size,
+													'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][1]['children'][1]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	freespace,
+													'type' :	tmp_type[i][j]})
+#
+				elif tmp_type[i][j] == 'mansion':
+
+					sunburst[i]['children'][0]['children'][2]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	size,
+													'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][1]['children'][2]['children'].append({
+													'name' :	tmp_id[i][j],
+													'size' :	freespace,
+													'type' :	tmp_type[i][j]})
+
+		sunburst[i]['children'].append({'name' : 	'unused',
+										'size' :	(180 * 160) - summy})
 
 
+	# {
+	#  "name": "flare",
+	#  "children": [
+	#   {
+	#    "name": "analytics",
+	#    "children": [
+	#     {
+	#      "name": "cluster",
+	#      "children": [
+	#       {"name": "AgglomerativeCluster", "size": 3938},
+	#       {"name": "CommunityStructure", "size": 3812},
+	#       {"name": "HierarchicalCluster", "size": 6714},
+	#       {"name": "MergeEdge", "size": 743}
+	#      ]
 
 	JSON_algorithm = {'network' : 	network,
 					  'map' : 		colour_map,
-					  'stacked' : 	stacked_chart}
+					  'stacked' : 	stacked_chart,
+					  'sunburst' :	sunburst}
 
 	JSON_data = json.loads(json.dumps(JSON_algorithm))
 

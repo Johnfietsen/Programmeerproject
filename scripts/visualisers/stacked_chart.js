@@ -1,8 +1,4 @@
 
-var colour = d3.scaleOrdinal()
-        		.range(["yellow", "orange", "red", "black"])
-        		.domain(["one_family", "bungalow", "mansion", "side"]);
-
 // define the area
 var area = d3.area()
 			    .x(function(d) { return x(d.i); })
@@ -12,12 +8,15 @@ var area = d3.area()
 
 // define the line
 var line = d3.line()
-			    .x(function(d) { return x(d.i); })
-			    .y(function(d) { return y(d.value); });
+			    .x(function(d, i) { console.log("test");
+									console.log(i);
+									return x(i); })
+			    .y(function(d, i) { console.log(d.values[i]);
+									return y(d.values[i]); });
 
 // set the ranges
-var x = d3.scaleTime().range([0, widthStacked]);
-var y = d3.scaleLinear().range([heightStacked, 0]);
+var x = d3.scaleLinear().domain([0, 10]).range([0, widthStacked]);
+var y = d3.scaleLinear().domain([0, 1000000]).range([heightStacked, 0]);
 
 function createStackedChart(algorithm) {
 
@@ -31,8 +30,9 @@ function createStackedChart(algorithm) {
 			.data(hillclimber.stacked)
 			.enter().append("path")
 			.attr("class", "line")
+			.style("stroke", "black")
 			.style("stroke", function(d) { return d.color = colour(d.type); })
-			.attr("d", function(d) { return line(d); });
+			.attr("d", function(d, i) { return line(d, i); });
 
 		// var area = stackedSVG.append("g")
 		// 			.attr("class", "area")

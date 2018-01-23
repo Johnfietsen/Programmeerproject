@@ -16,8 +16,8 @@ var marginStacked = {top: 20, right: 20, bottom: 60, left: 50},
 	heightStacked = 900 - marginStacked.top - marginStacked.bottom;
 
 var colour = d3.scaleOrdinal()
-        		.range(["yellow", "orange", "red", "black"])
-        		.domain(["one_family", "bungalow", "mansion", "side"]);
+        		.range(["yellow", "orange", "red", "black", "blue"])
+        		.domain(["one_family", "bungalow", "mansion", "side", "water"]);
 
 window.onload = function(){
 
@@ -71,7 +71,7 @@ window.onload = function(){
 	    .attr("class", "track-overlay")
 	    .call(d3.drag()
 	        .on("start.interrupt", function() { slider.interrupt(); })
-	        .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+	        .on("start drag", function() { update(x.invert(d3.event.x)); }));
 
 	slider.insert("g", ".track-overlay")
 	    .attr("class", "ticks")
@@ -94,11 +94,11 @@ window.onload = function(){
 	//       return function(t) { hue(i(t)); };
 	//     });
 
-	function hue(h) {
+	function update(i) {
 
-	 	handle.attr("cx", x(h));
-		// createNetwork(Math.round(h), 3, "hillclimber");
-		updateNetwork(Math.round(h), 3, "hillclimber");
-		updateMap(Math.round(h), "hillclimber");
+	 	handle.attr("cx", x(i));
+		updateNetwork(Math.round(i), 3, "hillclimber");
+		updateMap(Math.round(i), "hillclimber");
+
 	}
 };
