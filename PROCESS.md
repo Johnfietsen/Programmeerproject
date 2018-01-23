@@ -166,3 +166,30 @@ Today was fine. I could restructure some of the code, and the slider is actually
 * Transition for coloured map.
 * Stacked area chart fully functional.
 * Partitions with divs.
+
+
+### Tuesday
+
+#### Done:
+* JSON for sunburst.
+* Sunburst functional.
+
+#### Not done but planned:
+* Transition for coloured map.
+* Stacked area chart fully functional.
+* Partitions with divs.
+
+#### Problems encountered:
+* The json has to be specifically shaped for the stacked area chart and I didn't manage to find a corret way yet.
+* The example of the sunburst is for v3 of d3, so maybe I'll have a problem integrating it.
+
+#### Decisions:
+* First all visualizations should function with a simple update function, then the links and only then it is time to smooth the transitions.
+
+#### Comments:
+Working on the sunburst was easier than expected. Still the transitions are a puzzle for me, especially since they seem to work so nicely for other people.
+
+### Todo's tomorrow:
+* Integrating sunburst.
+* Update function sunburst.
+* Coloured area chart fully functional.
