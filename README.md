@@ -1,6 +1,6 @@
 # Amstelhaege algorithms
 
-###### GitHub Pages: https://Johnfietsen.github.io/Programmeerproject
+###### GitHub Pages: https://johnfietsen.github.io/Programmeerproject/scripts/webpages/hillclimber.html
 ###### Study:       Minor Programming, University of Amsterdam
 ###### Course:      Programmeerproject
 ###### Name:        Luc Stefelmanns

@@ -15,9 +15,21 @@ var marginStacked = {top: 20, right: 20, bottom: 60, left: 50},
 	widthStacked = 1200 - marginStacked.left - marginStacked.right,
 	heightStacked = 900 - marginStacked.top - marginStacked.bottom;
 
+var marginSunburst = {top: 20, right: 20, bottom: 60, left: 50},
+	widthSunburst = 1200 - marginSunburst.left - marginSunburst.right,
+	heightSunburst = 900 - marginSunburst.top - marginSunburst.bottom,
+	radiusSunburst = (Math.min(widthSunburst, heightSunburst) / 2) - 10;
+
+
+// var colour = d3.scaleOrdinal()
+//         		.range(["yellow", "orange", "red", "black", "blue"])
+//         		.domain(["one_family", "bungalow", "mansion", "side", "water"]);
+
 var colour = d3.scaleOrdinal()
-        		.range(["yellow", "orange", "red", "black", "blue"])
-        		.domain(["one_family", "bungalow", "mansion", "side", "water"]);
+        		.range(["yellow", "orange", "red", "black", "blue",
+				"black", "purple", "steelblue", "green"])
+        		.domain(["one_family", "bungalow", "mansion", "side", "water",
+				"unused", "build", "freespace", "map"]);
 
 window.onload = function(){
 
@@ -41,6 +53,11 @@ window.onload = function(){
 						.attr("height", heightMap)
 						.attr("id", "map");
 
+	var sunburstSVG = d3.select("body").append("svg")
+						.attr("width", widthSunburst)
+						.attr("height", heightSunburst)
+						.attr("id", "sunburst");
+
 	// in een div stoppen
 
 	createNetwork(0, 3, "hillclimber");
@@ -48,6 +65,8 @@ window.onload = function(){
 	createMap(0, "hillclimber");
 
 	createStackedChart("hillclimber");
+
+	createSunburst(9, "hillclimber");
 
 	var x = d3.scaleLinear()
 	    .domain([0, 10])

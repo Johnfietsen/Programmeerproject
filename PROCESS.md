@@ -162,7 +162,7 @@ None.
 #### Comments:
 Today was fine. I could restructure some of the code, and the slider is actually working fine, it's just that the update functions can be difficult sometimes.
 
-### Todo's tomorrow:
+#### Todo's tomorrow:
 * Transition for coloured map.
 * Stacked area chart fully functional.
 * Partitions with divs.
@@ -189,7 +189,32 @@ Today was fine. I could restructure some of the code, and the slider is actually
 #### Comments:
 Working on the sunburst was easier than expected. Still the transitions are a puzzle for me, especially since they seem to work so nicely for other people.
 
-### Todo's tomorrow:
+#### Todo's tomorrow:
 * Integrating sunburst.
 * Update function sunburst.
 * Coloured area chart fully functional.
+
+
+### Tuesday
+
+#### Done:
+* Sunburst integrated.
+
+#### Not done but planned:
+* Update function sunburst.
+* Coloured area chart fully functional.
+
+#### Problems encountered:
+* When placing the sunburst in the html page, the position changed to the top left corner of the SVG. Figuring out how to fix this took time.
+* All examples for stacked area charts use tsv or csv input files.
+
+#### Decisions:
+* Stacked area chart has to be made step by step instead of relying heavily on an example.
+
+#### Comments:
+Creating the stacked area chart is more cumbersome than expected, since it requires a specific data input.
+
+#### Todo's tomorrow:
+* Update function sunburst.
+* Stacked area chart.
+* Dropdown network.

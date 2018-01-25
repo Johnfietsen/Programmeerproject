@@ -136,25 +136,25 @@ def CSVtoJSON(algorithm):
 									  'id' : 	tmp_id[i][j]})
 
 
-	# store values, types, id and iteration for stacked area chart
-	for j in range(len(tmp_id[len(tmp_id) - 1])):
-
-		stacked_chart.append({'id' :		tmp_id[len(tmp_id) - 1][j],
-						   	  'type' :		tmp_type[len(tmp_id) - 1][j],
-						   	  'values' :	[]})
-
-	for i in range(len(tmp_id)):
-
-		for j in range(len(tmp_id[i])):
-
-			for house in stacked_chart:
-
-				if tmp_id[i][j] == house['id'] and tmp_id[i][j] != '\n':
-
-					house['values'].append(tmp_value[i][j])
+	# # store values, types, id and iteration for stacked area chart
+	# for j in range(len(tmp_id[len(tmp_id) - 1])):
     #
+	# 	stacked_chart.append({'id' :		tmp_id[len(tmp_id) - 1][j],
+	# 					   	  'type' :		tmp_type[len(tmp_id) - 1][j],
+	# 					   	  'values' :	[]})
     #
+	# for i in range(len(tmp_id)):
     #
+	# 	for j in range(len(tmp_id[i])):
+    #
+	# 		for house in stacked_chart:
+    #
+	# 			if tmp_id[i][j] == house['id'] and tmp_id[i][j] != '\n':
+    #
+	# 				house['values'].append(tmp_value[i][j])
+    #
+
+
 	# for i in range(len(tmp_id)):
     #
 	# 	stacked_chart.append([])
@@ -166,7 +166,17 @@ def CSVtoJSON(algorithm):
 	# 									 'type' :	tmp_type[i][j],
 	# 									 'id' :		tmp_id[i][j],
 	# 									 'i': 		int(i)})
-    #
+
+	for i in range(len(tmp_id)):
+
+		stacked_chart.append({})
+		stacked_chart[i]['time'] = i
+
+		for j in range(len(tmp_id[i])):
+
+			if tmp_id[i][j] != '\n':
+
+				stacked_chart[i][tmp_id[i][j]] = float(tmp_value[i][j])
 
 
 	# store structure for sunburst
@@ -254,21 +264,6 @@ def CSVtoJSON(algorithm):
 		sunburst[i]['children'].append({'name' : 	'unused',
 										'size' :	(180 * 160) - summy})
 
-
-	# {
-	#  "name": "flare",
-	#  "children": [
-	#   {
-	#    "name": "analytics",
-	#    "children": [
-	#     {
-	#      "name": "cluster",
-	#      "children": [
-	#       {"name": "AgglomerativeCluster", "size": 3938},
-	#       {"name": "CommunityStructure", "size": 3812},
-	#       {"name": "HierarchicalCluster", "size": 6714},
-	#       {"name": "MergeEdge", "size": 743}
-	#      ]
 
 	JSON_algorithm = {'network' : 	network,
 					  'map' : 		colour_map,

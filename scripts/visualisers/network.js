@@ -33,7 +33,7 @@ function ticked() {
 
 function createNetwork(iteration, nrLinks, algorithm) {
 
-	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
+	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
 		var networkSVG = d3.select("body").select("#network");
@@ -42,13 +42,13 @@ function createNetwork(iteration, nrLinks, algorithm) {
 					.attr("class", "links")
 					.style("stroke", "#aaa")
 	                .selectAll("line")
-	                .data(hillclimber.network[iteration].links[nrLinks])
+	                .data(data.network[iteration].links[nrLinks])
 	                .enter().append("line");
 
 		node = networkSVG.append("g")
 					.attr("class", "nodes")
 					.selectAll("circle")
-					.data(hillclimber.network[iteration].nodes)
+					.data(data.network[iteration].nodes)
 					.enter().append("circle")
 					.style("fill", function(d) { return colour(d.type); })
 					.attr("r", 10);
@@ -56,17 +56,17 @@ function createNetwork(iteration, nrLinks, algorithm) {
 		label = networkSVG.append("g")
 	      			.attr("class", "labels")
 				    .selectAll("text")
-				    .data(hillclimber.network[iteration].nodes)
+				    .data(data.network[iteration].nodes)
 				    .enter().append("text")
 			        .attr("class", "label")
 			        .text(function(d) { return d.id; });
 
 		simulation
-			.nodes(hillclimber.network[iteration].nodes)
+			.nodes(data.network[iteration].nodes)
 			.on("tick", ticked);
 
 		simulation.force("link")
-			.links(hillclimber.network[iteration].links[nrLinks]);
+			.links(data.network[iteration].links[nrLinks]);
 
 	});
 };
@@ -77,30 +77,30 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 	var networkSVG = d3.select("#network");
 	// networkSVG.transition().duration(200);
 
-	d3.json("/data/json/" + algorithm + ".json", function(error, hillclimber) {
+	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
 		link
-		    .data(hillclimber.network[iteration].links[nrLinks])
+		    .data(data.network[iteration].links[nrLinks])
 		    .enter().append("line");
 
 		node
-			.data(hillclimber.network[iteration].nodes)
+			.data(data.network[iteration].nodes)
 			.enter().append("circle")
 			.style("fill", function(d) { return colour(d.type); })
 			.attr("r", 10);
 
 		label
-			.data(hillclimber.network[iteration].nodes)
+			.data(data.network[iteration].nodes)
 			.enter().append("text")
 			.attr("class", "label")
 			.text(function(d) { return d.id; });
 
 		simulation
-			.nodes(hillclimber.network[iteration].nodes)
+			.nodes(data.network[iteration].nodes)
 			.on("tick", ticked);
 
 		simulation.force("link")
-			.links(hillclimber.network[iteration].links[nrLinks]);
+			.links(data.network[iteration].links[nrLinks]);
 	})
 }

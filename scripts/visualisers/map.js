@@ -7,27 +7,12 @@ var FACTOR = 3;
 function createMap(iteration, algorithm) {
 
 	var mapSVG = d3.select("body").select("#map");
-					// .selectAll("rect")
-					// .append("rect")
-					// // .classed('background', true)
-					// .attr("width", 1200)
-					// .attr("height", 900)
-					// .style("fill", "green");
 
-
-	// var svg = d3.select("body")
-	// 			.append("svg")
-	// 			.attrs({ width: 1200, height: 900 });
-	// 			// .append("rect")
-	// 			// .attr("width", 1200)
-	// 			// .attr("height", 900)
-	// 			// .style("fill", "green");
-
-	d3.json("/data/json/hillclimber.json", function(error, hillclimber) {
+	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
 		mapSVG.selectAll("rect")
-			.data(hillclimber.map[0])
+			.data(data.map[0])
 			.enter().append("rect")
 			.attr("x", function(d) { return d.x * FACTOR; })
 			.attr("y", function(d) { return d.y * FACTOR; })
@@ -36,11 +21,6 @@ function createMap(iteration, algorithm) {
 			.style("fill", function(d) { return colour(d.type); })
 		});
 
-   //  svg.append('rect')
-   //     .attrs({ x: 10, y: 10, width: 80, height: 80, fill: 'red' })
-   //     .transition()
-   //     .duration(5000)
-   //     .attrs({ x: 460, y: 150, width: 40, height: 40, fill: 'blue' });
 }
 
 function updateMap(iteration, algorithm) {
@@ -49,11 +29,11 @@ function updateMap(iteration, algorithm) {
 
 	mapSVG.selectAll("rect").remove();
 
-	d3.json("/data/json/hillclimber.json", function(error, hillclimber) {
+	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
 		mapSVG.selectAll("rect")
-			.data(hillclimber.map[iteration])
+			.data(data.map[iteration])
 			.enter().append("rect")
 			.attr("x", function(d) { return d.x * FACTOR; })
 			.attr("y", function(d) { return d.y * FACTOR; })
