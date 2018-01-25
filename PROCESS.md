@@ -195,7 +195,7 @@ Working on the sunburst was easier than expected. Still the transitions are a pu
 * Coloured area chart fully functional.
 
 
-### Tuesday
+### Wednesday
 
 #### Done:
 * Sunburst integrated.
