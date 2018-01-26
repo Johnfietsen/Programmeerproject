@@ -187,17 +187,18 @@ def CSVtoJSON(algorithm):
 		sunburst.append({'name' : 		'map',
 						 'children' :	[]})
 
-		sunburst[i]['children'].append({'name' : 		'build',
-							 'colour' :		'black',
-							'children' :	[{'name' :		'one_family',
-							 				  'colour' :	'yellow',
-											  'children' :	[]},
-											 {'name' :		'bungalow',
-											  'colour' :	'orange',
-											  'children' :	[]},
-											 {'name' :		'mansion',
-											  'colour' :	'red',
-											  'children' :	[]}]})
+
+		# sunburst[i]['children'].append({'name' : 		'build',
+		# 					 'colour' :		'black',
+		# 					'children' :	[{'name' :		'one_family',
+		# 					 				  'colour' :	'yellow',
+		# 									  'children' :	[]},
+		# 									 {'name' :		'bungalow',
+		# 									  'colour' :	'orange',
+		# 									  'children' :	[]},
+		# 									 {'name' :		'mansion',
+		# 									  'colour' :	'red',
+		# 									  'children' :	[]}]})
 
 		sunburst[i]['children'].append({'name' :		'freespace',
 							 'colour' :		'blue',
@@ -210,6 +211,12 @@ def CSVtoJSON(algorithm):
 											 {'name' :		'mansion',
 											  'colour' :	'red',
 											  'children' :	[]}]})
+
+
+		size_one_family = 0
+		size_bungalow = 0
+		size_mansion = 0
+
 
 		for j in range(len(tmp_id[i])):
 
@@ -227,42 +234,61 @@ def CSVtoJSON(algorithm):
 
 				if tmp_type[i][j] == 'one_family':
 
-					sunburst[i]['children'][0]['children'][0]['children'].append({
-													'name' :	tmp_id[i][j],
-													'size' :	size,
-													'type' :	tmp_type[i][j]})
+					size_one_family += size
 
-					sunburst[i]['children'][1]['children'][0]['children'].append({
+					# sunburst[i]['children'][0]['children'][0]['children'].append({
+					# 								'name' :	tmp_id[i][j],
+					# 								'size' :	size,
+					# 								'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][0]['children'][0]['children'].append({
 													'name' :	tmp_id[i][j],
 													'size' :	freespace,
 													'type' :	tmp_type[i][j]})
 
 				elif tmp_type[i][j] == 'bungalow':
 
-					sunburst[i]['children'][0]['children'][1]['children'].append({
-													'name' :	tmp_id[i][j],
-													'size' :	size,
-													'type' :	tmp_type[i][j]})
+					size_bungalow += size
 
-					sunburst[i]['children'][1]['children'][1]['children'].append({
+					# sunburst[i]['children'][0]['children'][1]['children'].append({
+					# 								'name' :	tmp_id[i][j],
+					# 								'size' :	size,
+					# 								'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][0]['children'][1]['children'].append({
 													'name' :	tmp_id[i][j],
 													'size' :	freespace,
 													'type' :	tmp_type[i][j]})
-#
+
 				elif tmp_type[i][j] == 'mansion':
 
-					sunburst[i]['children'][0]['children'][2]['children'].append({
-													'name' :	tmp_id[i][j],
-													'size' :	size,
-													'type' :	tmp_type[i][j]})
+					size_mansion += size
 
-					sunburst[i]['children'][1]['children'][2]['children'].append({
+					# sunburst[i]['children'][0]['children'][2]['children'].append({
+					# 								'name' :	tmp_id[i][j],
+					# 								'size' :	size,
+					# 								'type' :	tmp_type[i][j]})
+
+					sunburst[i]['children'][0]['children'][2]['children'].append({
 													'name' :	tmp_id[i][j],
 													'size' :	freespace,
 													'type' :	tmp_type[i][j]})
 
 		sunburst[i]['children'].append({'name' : 	'unused',
 										'size' :	(180 * 160) - summy})
+
+
+		sunburst[i]['children'].append({'name' : 		'build',
+							 'colour' :		'black',
+							'children' :	[{'name' :		'one_family',
+							 				  'colour' :	'yellow',
+											  'size' :		size_one_family},
+											 {'name' :		'bungalow',
+											  'colour' :	'orange',
+											  'size' :		size_bungalow},
+											 {'name' :		'mansion',
+											  'colour' :	'red',
+											  'size':	size_mansion}]})
 
 
 	JSON_algorithm = {'network' : 	network,

@@ -9,7 +9,8 @@ var simulation = d3.forceSimulation()
 
 var link;
 var node;
-var label;
+// var label;
+
 
 function ticked() {
 	link
@@ -23,43 +24,74 @@ function ticked() {
 		.style("stroke", "white")
 		.style("stroke-width", "4px")
 		.attr("cx", function(d) { return d.x+2; })
-		.attr("cy", function(d) { return d.y-2; });
+		.attr("cy", function(d) { return d.y-2; })
+		.attr("id", function(d) { return "network" + d.id; })
+		.on("click", function(d) { return clickLink(d.id); });
 
-	label
-		.attr("x", function(d) { return d.x; })
-		.attr("y", function (d) { return d.y; })
-		.style("font-size", "10px").style("fill", "black");
+	// label
+	// 	.attr("x", function(d) { return d.x; })
+	// 	.attr("y", function (d) { return d.y; })
+	// 	.style("font-size", "10px").style("fill", "black");
 }
 
+
 function createNetwork(iteration, nrLinks, algorithm) {
+
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
+
+		var select = d3.select("body")
+						.append("select")
+						.attr("class","select")
+						.attr("id", "dropdown")
+						.on("change", onchange(iteration, algorithm));
+
+		var options = select
+						.selectAll("option")
+						.data(data.network[iteration].links)
+						.enter()
+						.append("option")
+							.text(function (d, i) { return i; });
+
+
+		function onchange(iteration, algorithm) {
+
+			selectValue = d3.select("#dropdown")	.property("value")
+
+			console.log(selectValue);
+
+			updateNetwork(iteration, selectValue, algorithm);
+			// d3.select('body')
+			// 	.append('p')
+			// 	.text(selectValue + ' is the last selected option.')
+			};
+
 		var networkSVG = d3.select("body").select("#network");
 
 		link = networkSVG.append("g")
-					.attr("class", "links")
+					.attr("class", "link")
 					.style("stroke", "#aaa")
 	                .selectAll("line")
 	                .data(data.network[iteration].links[nrLinks])
 	                .enter().append("line");
 
 		node = networkSVG.append("g")
-					.attr("class", "nodes")
+					.attr("class", "node")
 					.selectAll("circle")
 					.data(data.network[iteration].nodes)
 					.enter().append("circle")
 					.style("fill", function(d) { return colour(d.type); })
 					.attr("r", 10);
 
-		label = networkSVG.append("g")
-	      			.attr("class", "labels")
-				    .selectAll("text")
-				    .data(data.network[iteration].nodes)
-				    .enter().append("text")
-			        .attr("class", "label")
-			        .text(function(d) { return d.id; });
+		// label = networkSVG.append("g")
+	    //   			.attr("class", "labels")
+		// 		    .selectAll("text")
+		// 		    .data(data.network[iteration].nodes)
+		// 		    .enter().append("text")
+		// 	        .attr("class", "label")
+		// 	        .text(function(d) { return d.id; });
 
 		simulation
 			.nodes(data.network[iteration].nodes)
@@ -71,6 +103,7 @@ function createNetwork(iteration, nrLinks, algorithm) {
 	});
 };
 
+
 // source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
 function updateNetwork(iteration, nrLinks, algorithm) {
 
@@ -79,6 +112,8 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
+
+		console.log(nrLinks);
 
 		link
 		    .data(data.network[iteration].links[nrLinks])
@@ -90,11 +125,11 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 			.style("fill", function(d) { return colour(d.type); })
 			.attr("r", 10);
 
-		label
-			.data(data.network[iteration].nodes)
-			.enter().append("text")
-			.attr("class", "label")
-			.text(function(d) { return d.id; });
+		// label
+		// 	.data(data.network[iteration].nodes)
+		// 	.enter().append("text")
+		// 	.attr("class", "label")
+		// 	.text(function(d) { return d.id; });
 
 		simulation
 			.nodes(data.network[iteration].nodes)

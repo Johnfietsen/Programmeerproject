@@ -17,6 +17,18 @@ var arc = d3.arc()
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
 
+var colourOneFamily = d3.scaleLinear()
+						.range([0, 20])
+						.domain(["white", "orange"]);
+
+var colourBungalow = d3.scaleLinear()
+						.range([0, 20])
+						.domain(["white", "red"]);
+
+var colourMansion = d3.scaleLinear()
+						.range([0, 20])
+						.domain(["white", "purple"]);
+
 
 function click(d) {
 
@@ -37,12 +49,14 @@ function click(d) {
 						return function() { return arc(d); }; });
 	}
 
+
+
 function createSunburst(iteration, algorithm) {
+
+	var sunburstSVG = d3.select("body").select("#sunburst");
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 	  if (error) throw error;
-
-	  	var sunburstSVG = d3.select("body").select("#sunburst");
 
 	  	root = d3.hierarchy(data.sunburst[iteration]);
 	  	root.sum(function(d) { return d.size; });
@@ -53,13 +67,37 @@ function createSunburst(iteration, algorithm) {
 	      			.attr("d", arc)
 					.attr("transform", "translate(" + widthSunburst / 2 + ","
 													+ heightSunburst / 2 + ")")
-					.style("fill", function(d) { return colour(d.data.name); })
-	     			.on("click", click)
+					.attr("id", function(d) {
+											return "sunburst" + d.data.name; })
+					.style("fill", function(d) { //console.log(d.data.name);
+							if (d.data.type == "one_family")
+								return colourOneFamily(parseFloat(d.data.name));
+							else if (d.data.type == "bungalow")
+							 	return colourBungalow(parseFloat(d.data.name));
+							else if (d.data.type == "mansion")
+								return colourMansion(parseFloat(d.data.name));
+							else
+								return colour(d.data.name); })
+	     			// .on("click", click)
+					.on("click", function(d) { return clickLink(d.data.name); })
 	    			.append("title")
 	      			.text(function(d) {
 						return d.data.name + "\n" + formatNumber(d.value); });
 	});
 
 	d3.select(self.frameElement).style("height", heightSunburst + "px");
+
+}
+
+function updateSunburst(iteration, algorithm) {
+
+	var sunburstSVG = d3.select("body").select("#sunburst");
+
+	// d3.json("/data/json/" + algorithm + ".json", function(error, data) {
+	//   if (error) throw error;
+    //
+	// updateData(data);
+    //
+	// })
 
 }
