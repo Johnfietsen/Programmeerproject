@@ -17,18 +17,6 @@ var arc = d3.arc()
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
 
-var colourOneFamily = d3.scaleLinear()
-						.range([0, 20])
-						.domain(["white", "orange"]);
-
-var colourBungalow = d3.scaleLinear()
-						.range([0, 20])
-						.domain(["white", "red"]);
-
-var colourMansion = d3.scaleLinear()
-						.range([0, 20])
-						.domain(["white", "purple"]);
-
 
 function click(d) {
 
@@ -69,7 +57,9 @@ function createSunburst(iteration, algorithm) {
 													+ heightSunburst / 2 + ")")
 					.attr("id", function(d) {
 											return "sunburst" + d.data.name; })
-					.style("fill", function(d) { //console.log(d.data.name);
+					.style("stroke", "white")
+					.style("stroke-width", "1px")
+					.style("fill", function(d) {
 							if (d.data.type == "one_family")
 								return colourOneFamily(parseFloat(d.data.name));
 							else if (d.data.type == "bungalow")
@@ -78,8 +68,15 @@ function createSunburst(iteration, algorithm) {
 								return colourMansion(parseFloat(d.data.name));
 							else
 								return colour(d.data.name); })
-	     			// .on("click", click)
-					.on("click", function(d) { return clickLink(d.data.name); })
+					.on("click", function(d) {
+							if (d.data.children == null &&
+								d.data.name != "unused" &&
+								d.data.name != "one_family" &&
+								d.data.name != "bungalow" &&
+								d.data.name != "mansion")
+								return clickLink(d.data.name);
+							else
+								return click(d); })
 	    			.append("title")
 	      			.text(function(d) {
 						return d.data.name + "\n" + formatNumber(d.value); });
@@ -93,11 +90,8 @@ function updateSunburst(iteration, algorithm) {
 
 	var sunburstSVG = d3.select("body").select("#sunburst");
 
-	// d3.json("/data/json/" + algorithm + ".json", function(error, data) {
-	//   if (error) throw error;
-    //
-	// updateData(data);
-    //
-	// })
+	sunburstSVG.selectAll("path").remove();
+
+	createSunburst(iteration, algorithm);
 
 }

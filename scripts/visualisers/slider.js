@@ -25,6 +25,20 @@ var marginSunburst = {top: 20, right: 20, bottom: 60, left: 50},
 //         		.range(["yellow", "orange", "red", "black", "blue"])
 //         		.domain(["one_family", "bungalow", "mansion", "side", "water"]);
 
+var iteration = 0;
+var algorithm = "hillclimber";
+
+var colourOneFamily = d3.scaleLinear()
+						.range(["white", "orange"])
+						.domain([-2, 12]);
+
+var colourBungalow = d3.scaleLinear()
+						.range(["white", "red"])
+						.domain([11, 17]);
+
+var colourMansion = d3.scaleLinear()
+						.range(["white", "purple"])
+						.domain([16, 20]);
 
 var colour = d3.scaleOrdinal()
         		.range(["orange", "red", "purple", "black", "blue",
@@ -96,7 +110,7 @@ function clickLink(id) {
 					.style("stroke-width", "3px");
 	sunburstElement = d3.select("#sunburst" + currentSelection)
 					.style("stroke", "white")
-					.style("stroke-width", "0px");;
+					.style("stroke-width", "1px");;
 
 	currentSelection = id;
 

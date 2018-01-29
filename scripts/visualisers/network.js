@@ -35,38 +35,60 @@ function ticked() {
 }
 
 
+// function onchange(iteration, algorithm) {
+//
+// 	selectValue = d3.select("#dropdown").select("value");
+//
+// 	console.log(selectValue);
+//
+// 	// updateNetwork(iteration, selectValue, algorithm);
+// 	// d3.select('body')
+// 	// 	.append('p')
+// 	// 	.text(selectValue + ' is the last selected option.')
+// };
+
+
+function onchange() {
+	
+	selectValue = d3.select('select').property('value')
+
+	console.log(selectValue);
+	console.log(iteration);
+	console.log(algorithm);
+
+	updateNetwork(iteration, selectValue, algorithm);
+};
+
 function createNetwork(iteration, nrLinks, algorithm) {
 
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
-
-		var select = d3.select("body")
-						.append("select")
-						.attr("class","select")
-						.attr("id", "dropdown")
-						.on("change", onchange(iteration, algorithm));
+		var select = d3.select('body')
+						.append('select')
+						.attr('class','select')
+						.on('change', onchange);
 
 		var options = select
-						.selectAll("option")
-						.data(data.network[iteration].links)
-						.enter()
-						.append("option")
-							.text(function (d, i) { return i; });
+						.selectAll('option')
+						.data(data.network[iteration].links).enter()
+						.append('option')
+						.text(function (d, i) { return i; });
 
+		// var select = d3.select("body")
+		// 				.append("select")
+		// 				.attr("class","select")
+		// 				.attr("id", "dropdown")
+		// 				.on("change", onchange(iteration, algorithm));
+        //
+		// var options = select
+		// 				.selectAll("option")
+		// 				.data(data.network[iteration].links)
+		// 				.enter()
+		// 				.append("option")
+		// 					.text(function (d, i) { return i; });
 
-		function onchange(iteration, algorithm) {
-
-			selectValue = d3.select("#dropdown")	.property("value")
-
-			console.log(selectValue);
-
-			updateNetwork(iteration, selectValue, algorithm);
-			// d3.select('body')
-			// 	.append('p')
-			// 	.text(selectValue + ' is the last selected option.')
-			};
 
 		var networkSVG = d3.select("body").select("#network");
 
