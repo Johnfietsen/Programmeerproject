@@ -48,45 +48,53 @@ var colour = d3.scaleOrdinal()
 
 var currentSelection;
 
-function updateData(data) {
+
+function updateDataMap(data) {
+
+	var networkSVG = d3.select("#map");
 
 	var t = d3.transition()
-				.duration(750),
-
-		g = d3.select("#network");
+    			.duration(10);
 
 	// JOIN new data with old elements.
-	var text = g.selectAll("path")
-				.data(data, function(d) { return d; });
+	var change = networkSVG.selectAll("rect")
+							.data(data, function(d) { return d; });
 
-	console.log(text);
+	console.log("map");
+	console.log(change);
 
-	// EXIT old elements not present in new data.
-	text.exit()
-		.attr("class", "exit")
-		.transition(t)
-		.attr("y", 60)
-		.style("fill-opacity", 1e-6)
-		.remove();
 
-	// UPDATE old elements present in new data.
-	text.attr("class", "update")
-		.attr("y", 0)
-		.style("fill-opacity", 1)
-		.transition(t)
-		.attr("x", function(d, i) { return i * 32; });
+	// UPDATE
+     // Update old elements as needed.
+     change.attr("class", "update");
 
-	// ENTER new elements present in new data.
-	text.enter().append("path")
-		.attr("class", "enter")
-    	.attr("dy", ".35em")
-    	.attr("y", -60)
-    	.attr("x", function(d, i) { return i * 32; })
-    	.style("fill-opacity", 1e-6)
-    	.text(function(d) { return d; })
-		.transition(t)
-		.attr("y", 0)
-		.style("fill-opacity", 1);
+     // ENTER
+     // Create new elements as needed.
+     //
+     // ENTER + UPDATE
+     // After merging the entered elements with the update selection,
+     // apply operations to both.
+     change.enter().append("rect")
+         .attr("class", "enter")
+		 .merge(change)
+	 	.attr("x", function(d) { return d.x * FACTOR; })
+		.attr("y", function(d) { return d.y * FACTOR; })
+		.attr("width", function(d) { return d.width * FACTOR; })
+		.attr("height", function(d) { return d.height * FACTOR; })
+		.style("fill", function(d) { return colour(d.type); })
+		.attr("id", function(d) { return "map" + d.id ;})
+		.on("click", function(d) { return clickLink(d.id); });
+
+
+       //   .attr("dy", ".35em")
+       //   .text(function(d) { return d; })
+       // .merge(text)
+       //   .attr("x", function(d, i) { return i * 32; });
+
+     // EXIT
+     // Remove old elements as needed.
+     change.exit().remove();
+
 }
 
 

@@ -23,8 +23,8 @@ function ticked() {
 		.attr("r", 10)
 		.style("stroke", "white")
 		.style("stroke-width", "4px")
-		.attr("cx", function(d) { return d.x+2; })
-		.attr("cy", function(d) { return d.y-2; })
+		.attr("cx", function(d) { return d.x + 2; })
+		.attr("cy", function(d) { return d.y - 2; })
 		.attr("id", function(d) { return "network" + d.id; })
 		.on("click", function(d) { return clickLink(d.id); });
 
@@ -49,12 +49,8 @@ function ticked() {
 
 
 function onchange() {
-	
-	selectValue = d3.select('select').property('value')
 
-	console.log(selectValue);
-	console.log(iteration);
-	console.log(algorithm);
+	selectValue = d3.select("select").property("value");
 
 	updateNetwork(iteration, selectValue, algorithm);
 };
@@ -65,15 +61,15 @@ function createNetwork(iteration, nrLinks, algorithm) {
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
-		var select = d3.select('body')
-						.append('select')
-						.attr('class','select')
-						.on('change', onchange);
+		var select = d3.select("body")
+						.append("select")
+						.attr("class","select")
+						.on("change", onchange);
 
 		var options = select
-						.selectAll('option')
+						.selectAll("option")
 						.data(data.network[iteration].links).enter()
-						.append('option')
+						.append("option")
 						.text(function (d, i) { return i; });
 
 		// var select = d3.select("body")
@@ -126,6 +122,60 @@ function createNetwork(iteration, nrLinks, algorithm) {
 };
 
 
+
+function updateDataNetwork(data, nrLinks) {
+
+	var networkSVG = d3.select("#network");
+
+	var t = d3.transition()
+    			.duration(10);
+
+	// JOIN new data with old elements.
+	var change1 = networkSVG.selectAll("node")
+							.data(data.nodes, function(d) { return d; });
+
+	var change2 = networkSVG.selectAll("link")
+							.data(data.links[nrLinks], function(d) {
+																return d; });
+
+
+	// UPDATE
+     // Update old elements as needed.
+     change1.attr("class", "update");
+	 change2.attr("class", "update");
+
+
+     // ENTER
+     // Create new elements as needed.
+     //
+     // ENTER + UPDATE
+     // After merging the entered elements with the update selection,
+     // apply operations to both.
+     change1.enter().append("circle")
+        			.attr("class", "enter")
+					.merge(change1)
+					.style("fill", function(d) { return colour(d.type); })
+ 					.attr("r", 10);
+
+	change2.enter().append("line")
+        			.attr("class", "enter")
+					.merge(change2);
+
+
+       //   .attr("dy", ".35em")
+       //   .text(function(d) { return d; })
+       // .merge(text)
+       //   .attr("x", function(d, i) { return i * 32; });
+
+     // EXIT
+     // Remove old elements as needed.
+     change1.exit().remove();
+	 change2.exit().remove();
+
+
+}
+
+
 // source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
 function updateNetwork(iteration, nrLinks, algorithm) {
 
@@ -135,29 +185,30 @@ function updateNetwork(iteration, nrLinks, algorithm) {
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
-		console.log(nrLinks);
+		updateDataNetwork(data.network[iteration], nrLinks);
 
-		link
-		    .data(data.network[iteration].links[nrLinks])
-		    .enter().append("line");
 
-		node
-			.data(data.network[iteration].nodes)
-			.enter().append("circle")
-			.style("fill", function(d) { return colour(d.type); })
-			.attr("r", 10);
-
-		// label
+		// link
+		//     .data(data.network[iteration].links[nrLinks])
+		//     .enter().append("line");
+        //
+		// node
 		// 	.data(data.network[iteration].nodes)
-		// 	.enter().append("text")
-		// 	.attr("class", "label")
-		// 	.text(function(d) { return d.id; });
-
-		simulation
-			.nodes(data.network[iteration].nodes)
-			.on("tick", ticked);
-
-		simulation.force("link")
-			.links(data.network[iteration].links[nrLinks]);
+		// 	.enter().append("circle")
+		// 	.style("fill", function(d) { return colour(d.type); })
+		// 	.attr("r", 10);
+        //
+		// // label
+		// // 	.data(data.network[iteration].nodes)
+		// // 	.enter().append("text")
+		// // 	.attr("class", "label")
+		// // 	.text(function(d) { return d.id; });
+        //
+		// simulation
+		// 	.nodes(data.network[iteration].nodes)
+		// 	.on("tick", ticked);
+        //
+		// simulation.force("link")
+		// 	.links(data.network[iteration].links[nrLinks]);
 	})
 }

@@ -266,3 +266,29 @@ I found a function that manages data updates and I will try to integrate it next
 #### Todo's Monday:
 * Better update function.
 * Functioning tabs.
+
+
+
+## Week 4
+
+
+### Monday
+
+#### Done:
+* Better data update function for map.
+
+#### Not done but planned:
+* Better update function doesn't work for sunburst and network yet.
+
+#### Problems encountered:
+* The update function doesn't select the right data for the sunburst and network, so nothing happens.
+
+#### Decisions:
+I will use tomorrow and Wednesday to finalize the code. On Thursday I will make the report.
+
+#### Comments:
+I will have to do a lot tomorrow in order to keep up.
+
+#### Todo's tomorrow:
+* Update function for network and sunburst improved.
+* Working tabs.
