@@ -218,3 +218,51 @@ Creating the stacked area chart is more cumbersome than expected, since it requi
 * Update function sunburst.
 * Stacked area chart.
 * Dropdown network.
+
+
+### Thursday
+
+#### Done:
+* Update function sunburst.
+* Dropdown network (frame).
+* Links between visualizations.
+
+#### Not done but planned:
+* Stacked area chart.
+* Dropdown fully functioning.
+
+#### Problems encountered:
+* The update function of the dropdown doesn't accept values given for iteration and algorithm.
+
+#### Decisions:
+* Due to time management, the stacked area chart has to wait (it is not an important part of the visualization).
+
+#### Comments:
+For me it is difficult to keep track of all functions and variables in Javascript (d3).
+
+#### Todo's tomorrow:
+* Dropdown functioning.
+
+
+### Friday
+
+#### Done:
+* Dropdown functioning.
+
+#### Not done but planned:
+None.
+
+#### Problems encountered:
+None.
+
+#### Decisions:
+* Next week the update functions should be made nicer.
+* Second priority is making the tabs work.
+* Iteration and algorithm have been made global variables.
+
+#### Comments:
+I found a function that manages data updates and I will try to integrate it next week.
+
+#### Todo's Monday:
+* Better update function.
+* Functioning tabs.
