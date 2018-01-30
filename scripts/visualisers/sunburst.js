@@ -18,7 +18,7 @@ var arc = d3.arc()
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
 
 
-function click(d) {
+function clickZoom(d) {
 
 	var sunburstSVG = d3.select("body").select("#sunburst");
 
@@ -39,7 +39,7 @@ function click(d) {
 
 
 
-function createSunburst(iteration, algorithm) {
+function createSunburst(iteration, data) {
 
 	var sunburstSVG = d3.select("body").select("#sunburst");
 
@@ -76,7 +76,7 @@ function createSunburst(iteration, algorithm) {
 								d.data.name != "mansion")
 								return clickLink(d.data.name);
 							else
-								return click(d); })
+								return clickZoom(d); })
 	    			.append("title")
 	      			.text(function(d) {
 						return d.data.name + "\n" +
@@ -140,7 +140,7 @@ function updateDataSunburst(data) {
 					 d.data.name != "mansion")
 					 return clickLink(d.data.name);
 				 else
-					 return click(d); })
+					 return clickZoom(d); })
 		 .append("title")
 		 .text(function(d) {
 			 return d.data.name + "\n" +
