@@ -292,3 +292,29 @@ I will have to do a lot tomorrow in order to keep up.
 #### Todo's tomorrow:
 * Update function for network and sunburst improved.
 * Working tabs.
+
+
+### Tuesday
+
+#### Done:
+* Update function for sunburst improved.
+* Divs + bootstrap for webpage.
+
+#### Not done but planned:
+* Working tabs.
+* Update function for network improved.
+
+#### Problems encountered:
+* Ensuring the svgs for the visualizations fit the divs.
+* Forgot to order the data for the network before updating.
+
+#### Decisions:
+None.
+
+#### Comments:
+The webpage looks a lot better now, and if the network update function is improved one page is done. Only the adding of tabs is needed (which are all the 'same' page, except for the data);
+
+#### Todo's tomorrow:
+* Working tabs.
+* Update function network improved.
+* Information page.
