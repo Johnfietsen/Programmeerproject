@@ -33,15 +33,14 @@ function clickZoom(d) {
 											 y.domain(yd(t)).range(yr(t)); };
 					})
     			.selectAll("path")
-      			.attrTween("d", function(d) {
-						return function() { return arc(d); }; });
+      			.attrTween("d", function(d) {return arc(d); });
 	}
 
 
 
 function createSunburst(iteration, data) {
 
-	var sunburstSVG = d3.select("body").select("#sunburst");
+	var sunburstSVG = d3.select("#sunburst");
 
 	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
 	  if (error) throw error;
@@ -88,19 +87,25 @@ function createSunburst(iteration, data) {
 }
 
 
-function updateDataSunburst(data) {
+function updateSunburst(data) {
 
-	var networkSVG = d3.select("#map");
+	var sunburstSVG = d3.select("#sunburst");
 
 	var t = d3.transition()
     			.duration(10);
 
-	// JOIN new data with old elements.
-	var change = networkSVG.selectAll("path")
-							.data(data, function(d) { return d; });
+	root = d3.hierarchy(data);
+	root.sum(function(d) { return d.size; });
 
-	console.log("sunburst");
-	console.log(change);
+	var change = sunburstSVG.selectAll("path")
+				.data(partition(root).descendants())
+
+	// JOIN new data with old elements.
+	// var change = sunburstSVG.selectAll("path")
+	// 						.data(data, function(d) { return d; });
+
+	// console.log("sunburst");
+	// console.log(change);
 
 
 	// UPDATE
@@ -155,27 +160,5 @@ function updateDataSunburst(data) {
      // EXIT
      // Remove old elements as needed.
      change.exit().remove();
-
-}
-
-
-
-function updateSunburst(iteration, algorithm) {
-
-	var sunburstSVG = d3.select("body").select("#sunburst");
-
-
-	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
-	  if (error) throw error;
-
-		updateDataSunburst(data.sunburst[iteration]);
-
-
-	})
-
-
-	// sunburstSVG.selectAll("path").remove();
-    //
-	// createSunburst(iteration, algorithm);
 
 }

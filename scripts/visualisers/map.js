@@ -21,7 +21,7 @@ function createMap(iteration, data) {
 }
 
 
-function updateDataMap(data) {
+function updateMap(data) {
 
 	var networkSVG = d3.select("#map");
 
@@ -31,10 +31,6 @@ function updateDataMap(data) {
 	// JOIN new data with old elements.
 	var change = networkSVG.selectAll("rect")
 							.data(data, function(d) { return d; });
-
-	console.log("map");
-	console.log(change);
-
 
 	// UPDATE
     // Update old elements as needed.
@@ -67,17 +63,4 @@ function updateDataMap(data) {
      // Remove old elements as needed.
     change.exit().remove();
 
-}
-
-
-function updateMap(iteration, algorithm) {
-
-	var mapSVG = d3.select("body").select("#map");
-
-	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
-		if (error) throw error;
-
-		updateDataMap(data.map[iteration]);
-
-	})
 }

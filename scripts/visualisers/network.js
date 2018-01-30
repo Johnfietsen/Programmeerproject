@@ -119,13 +119,14 @@ function createNetwork(iteration, nrLinks, data) {
 };
 
 
-
-function updateDataNetwork(data, nrLinks) {
+function updateNetwork(nrLinks, data) {
 
 	var networkSVG = d3.select("#network");
 
 	// var t = d3.transition()
     // 			.duration(10);
+
+	console.log(data);
 
 	// JOIN new data with old elements.
 	var change1 = networkSVG.selectAll("node")
@@ -173,52 +174,46 @@ function updateDataNetwork(data, nrLinks) {
 	change1.exit().remove();
 	change2.exit().remove();
 
-	simulation
-		.nodes(data.network[iteration].nodes)
-		.on("tick", ticked);
-
-	simulation.force("link")
-		.links(data.network[iteration].links[nrLinks]);
+	// simulation
+	// 	.nodes(data.network[iteration].nodes)
+	// 	.on("tick", ticked);
+    //
+	// simulation.force("link")
+	// 	.links(data.network[iteration].links[nrLinks]);
 
 
 }
 
 
-// source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
-function updateNetwork(iteration, nrLinks, algorithm) {
-
-	var networkSVG = d3.select("#network");
-	// networkSVG.transition().duration(200);
-
-	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
-		if (error) throw error;
-
-		console.log("test");
-
-		updateDataNetwork(data.network[iteration], nrLinks);
-
-
-		// link
-		//     .data(data.network[iteration].links[nrLinks])
-		//     .enter().append("line");
-        //
-		// node
-		// 	.data(data.network[iteration].nodes)
-		// 	.enter().append("circle")
-		// 	.style("fill", function(d) { return colour(d.type); })
-		// 	.attr("r", 10);
-        //
-		// // label
-		// // 	.data(data.network[iteration].nodes)
-		// // 	.enter().append("text")
-		// // 	.attr("class", "label")
-		// // 	.text(function(d) { return d.id; });
-        //
-		// simulation
-		// 	.nodes(data.network[iteration].nodes)
-		// 	.on("tick", ticked);
-        //
-		// simulation.force("link")
-		// 	.links(data.network[iteration].links[nrLinks]);
-	})
-}
+// // source: http://bl.ocks.org/d3noob/7030f35b72de721622b8
+// function updateNetwork(iteration, nrLinks, data) {
+//
+// 	var networkSVG = d3.select("#network");
+// 	networkSVG.transition().duration(200);
+//
+// 	updateDataNetwork(data.network[iteration], nrLinks);
+//
+//
+// 		// link
+// 		//     .data(data.network[iteration].links[nrLinks])
+// 		//     .enter().append("line");
+//         //
+// 		// node
+// 		// 	.data(data.network[iteration].nodes)
+// 		// 	.enter().append("circle")
+// 		// 	.style("fill", function(d) { return colour(d.type); })
+// 		// 	.attr("r", 10);
+//         //
+// 		// // label
+// 		// // 	.data(data.network[iteration].nodes)
+// 		// // 	.enter().append("text")
+// 		// // 	.attr("class", "label")
+// 		// // 	.text(function(d) { return d.id; });
+//         //
+// 		// simulation
+// 		// 	.nodes(data.network[iteration].nodes)
+// 		// 	.on("tick", ticked);
+//         //
+// 		// simulation.force("link")
+// 		// 	.links(data.network[iteration].links[nrLinks]);
+// }

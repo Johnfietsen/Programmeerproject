@@ -11,10 +11,6 @@ var marginSlider = {top: 20, right: 20, bottom: 60, left: 50},
 	widthSlider = 1200 - marginSlider.left - marginSlider.right,
 	heightSlider = 200 - marginSlider.top - marginSlider.bottom;
 
-// var marginStacked = {top: 20, right: 20, bottom: 60, left: 50},
-// 	widthStacked = 1200 - marginStacked.left - marginStacked.right,
-// 	heightStacked = 900 - marginStacked.top - marginStacked.bottom;
-
 var marginSunburst = {top: 20, right: 20, bottom: 60, left: 50},
 	widthSunburst = 1200 - marginSunburst.left - marginSunburst.right,
 	heightSunburst = 900 - marginSunburst.top - marginSunburst.bottom,
@@ -75,44 +71,49 @@ function clickLink(id) {
 
 window.onload = function(){
 
-	var networkSVG = d3.select("body").append("svg")
-						.attr("width", widthNetwork)
-						.attr("height", heightNetwork)
+	var networkSVG = d3.select("#networkDiv").append("svg")
+						.attr("width", "100%")
+						.attr("height", "100%")
+						.attr("viewBox", "0 0 1200 900")
+						.attr("perserveAspectRatio", "xMaxYMax")
 						.attr("id", "network");
 
-	// var stackedSVG = d3.select("body").append("svg")
-	// 					.attr("width", widthStacked)
-	// 					.attr("height", heightStacked)
-	// 					.attr("id", "stacked");
-
-	var sliderSVG = d3.select("body").append("svg")
-						.attr("width", widthSlider)
-						.attr("height", heightSlider)
+	var sliderSVG = d3.select("#sliderDiv").append("svg")
+						.attr("width", "100%")
+						.attr("height", "100%")
+						.attr("viewBox", "0 0 1200 500")
+						.attr("perserveAspectRatio", "xMaxYMax")
 						.attr("id", "slider");
 
-	var mapSVG = d3.select("body").append("svg")
-						.attr("width", widthMap)
-						.attr("height", heightMap)
+	var mapSVG = d3.select("#mapDiv").append("svg")
+						.attr("width", "100%")
+						.attr("height", "100%")
+						.attr("viewBox", "0 0 1200 500")
+						.attr("perserveAspectRatio", "xMaxYMax")
 						.attr("id", "map");
 
-	var sunburstSVG = d3.select("body").append("svg")
-						.attr("width", widthSunburst)
-						.attr("height", heightSunburst)
+	var sunburstSVG = d3.select("#sunburstDiv").append("svg")
+						.attr("width", "100%")
+						.attr("height", "100%")
+						.attr("viewBox", "0 0 1200 900")
+						.attr("perserveAspectRatio", "xMaxYMax")
 						.attr("id", "sunburst");
 
 
-	d3.json("/data/json/" + algorithm + ".json", function(error, data) {
+	d3.json("../../data/json/" + algorithm + ".json", function(error, data) {
 		if (error) throw error;
 
-		createNetwork(0, 3, data);
+		createNetwork(iteration, 3, data);
 
-		createMap(0, data);
+		createMap(iteration, data);
 
 		// createStackedChart(data);
 
-		createSunburst(9, data);
+		createSunburst(iteration, data);
 
-		createSlider();
+		createSlider(data);
 
 	});
+
+
 };
