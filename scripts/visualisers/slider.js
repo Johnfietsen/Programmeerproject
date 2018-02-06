@@ -1,10 +1,21 @@
+/*
+ *  University:		University of Amsterdam
+ *  Study:			Minor Programming
+ *  Course:			Programmeerproject
+ *  Name:			Luc Stefelmanns
+ *  Student nr.:	10669124
+ *
+ * This script contains all the functions needed to create the slider and to
+ * use the slider to control the iterations.
+ */
+
 
 function createSlider(data) {
 
 	var sliderSVG = d3.select("#slider");
 
 	var x = d3.scaleLinear()
-			    .domain([0, 10])
+			    .domain([0, 100])
 			    .range([0, widthSlider - 2 * marginSlider.left])
 			    .clamp(true);
 
@@ -25,7 +36,8 @@ function createSlider(data) {
 		    .attr("class", "track-overlay")
 		    .call(d3.drag()
 	        .on("start.interrupt", function() { slider.interrupt(); })
-	        .on("start drag", function() { update(x.invert(d3.event.x), data); }));
+	        .on("start drag", function() {
+										update(x.invert(d3.event.x), data); }));
 
 	slider.insert("g", ".track-overlay")
 		    .attr("class", "ticks")
@@ -39,15 +51,22 @@ function createSlider(data) {
 
 	var handle = slider.insert("circle", ".track-overlay")
 					    .attr("class", "handle")
-					    .attr("r", 9)
-						.attr("id", "handle");
+					    .attr("r", 50)
+						.attr("id", "handle")
+						.style("fill", "blue")
+						.attr("fill-opacity", 0.6);
 
-	// slider.transition() // Gratuitous intro!
-	//     .duration(750)
-	//     .tween("hue", function() {
-	//       var i = d3.interpolate(0, 70);
-	//       return function(t) { hue(i(t)); };
-	//     });
+	// introduction animation
+	if (algorithm == "force_move") {
+
+		slider.transition()
+		    .duration(7500)
+		    .tween("update", function() {
+		      var i = d3.interpolate(0, 100);
+		      return function(t) { update(i(t), data); };
+		    });
+	}
+
 
 	function update(i, data) {
 
@@ -55,7 +74,7 @@ function createSlider(data) {
 
 		iteration = Math.round(i);
 
-		updateNetwork(3, data.network[iteration]);
+		updateNetwork(iteration, nrLinks, data);
 
 		updateMap(data.map[iteration]);
 

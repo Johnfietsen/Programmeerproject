@@ -11,6 +11,9 @@ import numpy
 
 
 MAX_LINKS = 10
+WIDTH_MAP = 180
+HEIGHT_MAP = 160
+STEP_SIZE = 10
 
 
 def CSVtoJSON(algorithm):
@@ -36,6 +39,12 @@ def CSVtoJSON(algorithm):
 	value =			open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
 						 'Programmeerproject/data/csv/' + algorithm + \
 						 '/value.csv', 'r')
+	water_loc =		open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
+						 'Programmeerproject/data/csv/' + algorithm + \
+						 '/water_loc.csv', 'r')
+	water_size = 	open('C:/Users/lucst/Desktop/Minor programmeren/GitHub/' + \
+						 'Programmeerproject/data/csv/' + algorithm + \
+						 '/water_size.csv', 'r')
 
 	tmp_freespaces =	[]
 	tmp_location =		[]
@@ -44,6 +53,8 @@ def CSVtoJSON(algorithm):
 	tmp_size =			[]
 	tmp_type =			[]
 	tmp_value =			[]
+	tmp_water_loc =		[]
+	tmp_water_size =	[]
 
 	network =			[]
 	colour_map = 		[]
@@ -85,6 +96,18 @@ def CSVtoJSON(algorithm):
 	for line in value:
 		tmp_value.append(line.split(','))
 
+	for line in water_loc:
+		tmp_water_loc.append(line.split(','))
+	for i in range(len(tmp_water_loc)):
+		for j in range(len(tmp_water_loc[i])):
+			tmp_water_loc[i][j] = tmp_water_loc[i][j].split(';')
+
+	for line in water_size:
+		tmp_water_size.append(line.split(','))
+	for i in range(len(tmp_water_size)):
+		for j in range(len(tmp_water_size[i])):
+			tmp_water_size[i][j] = tmp_water_size[i][j].split(';')
+
 
 	# store nodes and types for network
 	for i in range(len(tmp_id)):
@@ -125,6 +148,12 @@ def CSVtoJSON(algorithm):
 
 		colour_map.append([])
 
+		colour_map[i].append({'x' :			WIDTH_MAP / 2,
+							  'y' :			HEIGHT_MAP / 2,
+							  'width' : 	WIDTH_MAP,
+							  'height' : 	HEIGHT_MAP,
+							  'type' : 		'map'})
+
 		for j in range(len(tmp_id[i])):
 
 			if tmp_id[i][j] != '\n':
@@ -135,52 +164,59 @@ def CSVtoJSON(algorithm):
 									  'type' :	tmp_type[i][j],
 									  'id' : 	tmp_id[i][j]})
 
+		for k in range(len(tmp_water_loc[i])):
 
-	# # store values, types, id and iteration for stacked area chart
-	# for j in range(len(tmp_id[len(tmp_id) - 1])):
-    #
-	# 	stacked_chart.append({'id' :		tmp_id[len(tmp_id) - 1][j],
-	# 					   	  'type' :		tmp_type[len(tmp_id) - 1][j],
-	# 					   	  'values' :	[]})
-    #
-	# for i in range(len(tmp_id)):
-    #
-	# 	for j in range(len(tmp_id[i])):
-    #
-	# 		for house in stacked_chart:
-    #
-	# 			if tmp_id[i][j] == house['id'] and tmp_id[i][j] != '\n':
-    #
-	# 				house['values'].append(tmp_value[i][j])
-    #
+			if tmp_water_loc[i][k][0] != ' \n':
+				colour_map[i].append({'x' :		float(tmp_water_loc[i][k][0]),
+									  'y' :		float(tmp_water_loc[i][k][1]),
+									  'width' :	float(tmp_water_size[i][k][0]),
+									  'height' :float(tmp_water_size[i][k][1]),
+									  'type' :	'water'})
 
 
-	# for i in range(len(tmp_id)):
-    #
-	# 	stacked_chart.append([])
-    #
-	# 	for j in range(len(tmp_id[i])):
-    #
-	# 		if tmp_id[i][j] != '\n':
-	# 			stacked_chart[i].append({'value' :	float(tmp_value[i][j]),
-	# 									 'type' :	tmp_type[i][j],
-	# 									 'id' :		tmp_id[i][j],
-	# 									 'i': 		int(i)})
-
+	# store structure for sunburst
 	for i in range(len(tmp_id)):
 
-		stacked_chart.append({})
-		stacked_chart[i]['time'] = i
+		total_tested = (WIDTH_MAP / STEP_SIZE) * (HEIGHT_MAP / STEP_SIZE)
+
+		used = 0
+		tot_free = 0
 
 		for j in range(len(tmp_id[i])):
 
 			if tmp_id[i][j] != '\n':
 
-				stacked_chart[i][tmp_id[i][j]] = float(tmp_value[i][j])
+				tot_free += numpy.pi * numpy.power(float( \
+													tmp_freespaces[i][j][0]), 2)
+				tot_free += 2 * float(tmp_size[i][j][0]) * \
+								float(tmp_freespaces[i][j][0])
+				tot_free += 2 * float(tmp_size[i][j][1]) * \
+								float(tmp_freespaces[i][j][0])
 
+		# calculate area used as freespace on entire map
+		for k in range(0, WIDTH_MAP, STEP_SIZE):
 
-	# store structure for sunburst
-	for i in range(len(tmp_id)):
+			for l in range(0, HEIGHT_MAP, STEP_SIZE):
+
+				for m in range(len(tmp_id[0])):
+
+					if tmp_id[i][m] != '\n':
+
+						distance = numpy.sqrt(numpy.power((k - \
+									float(tmp_location[i][m][0])), 2) + \
+								   			  numpy.power((l - \
+									float(tmp_location[i][m][1])), 2))
+
+						difference = distance - float(tmp_freespaces[i][m][0]) - \
+									 float(tmp_size[i][m][0])
+
+						if difference <= 0:
+
+							used += 1
+
+							break
+
+		used /= total_tested
 
 		summy = 0
 
@@ -188,20 +224,7 @@ def CSVtoJSON(algorithm):
 						 'children' :	[]})
 
 
-		# sunburst[i]['children'].append({'name' : 		'build',
-		# 					 'colour' :		'black',
-		# 					'children' :	[{'name' :		'one_family',
-		# 					 				  'colour' :	'yellow',
-		# 									  'children' :	[]},
-		# 									 {'name' :		'bungalow',
-		# 									  'colour' :	'orange',
-		# 									  'children' :	[]},
-		# 									 {'name' :		'mansion',
-		# 									  'colour' :	'red',
-		# 									  'children' :	[]}]})
-
 		sunburst[i]['children'].append({'name' :		'freespace',
-							 'colour' :		'blue',
 						 	'children' :	[{'name' :		'one_family',
 							 				  'colour' :	'yellow',
 											  'children' :	[]},
@@ -217,12 +240,12 @@ def CSVtoJSON(algorithm):
 		size_bungalow = 0
 		size_mansion = 0
 
-
 		for j in range(len(tmp_id[i])):
 
 			if tmp_id[i][j] != '\n':
 
-				freespace = numpy.pi * numpy.power(float(tmp_freespaces[i][j][0]), 2)
+				freespace = numpy.pi * numpy.power(float( \
+													tmp_freespaces[i][j][0]), 2)
 				freespace += 2 * float(tmp_size[i][j][0]) * \
 								 float(tmp_freespaces[i][j][0])
 				freespace += 2 * float(tmp_size[i][j][1]) * \
@@ -230,57 +253,47 @@ def CSVtoJSON(algorithm):
 
 				size = float(tmp_size[i][j][0]) * float(tmp_size[i][j][1])
 
-				summy += freespace + size
+				freespace_part = (freespace / tot_free) * used * \
+								 (WIDTH_MAP * HEIGHT_MAP)
+
+				summy += freespace_part + size
 
 				if tmp_type[i][j] == 'one_family':
 
 					size_one_family += size
 
-					# sunburst[i]['children'][0]['children'][0]['children'].append({
-					# 								'name' :	tmp_id[i][j],
-					# 								'size' :	size,
-					# 								'type' :	tmp_type[i][j]})
-
 					sunburst[i]['children'][0]['children'][0]['children'].append({
 													'name' :	tmp_id[i][j],
-													'size' :	freespace,
+													'size' :	freespace_part,
 													'type' :	tmp_type[i][j]})
 
 				elif tmp_type[i][j] == 'bungalow':
 
 					size_bungalow += size
 
-					# sunburst[i]['children'][0]['children'][1]['children'].append({
-					# 								'name' :	tmp_id[i][j],
-					# 								'size' :	size,
-					# 								'type' :	tmp_type[i][j]})
 
 					sunburst[i]['children'][0]['children'][1]['children'].append({
 													'name' :	tmp_id[i][j],
-													'size' :	freespace,
+													'size' :	freespace_part,
 													'type' :	tmp_type[i][j]})
 
 				elif tmp_type[i][j] == 'mansion':
 
 					size_mansion += size
 
-					# sunburst[i]['children'][0]['children'][2]['children'].append({
-					# 								'name' :	tmp_id[i][j],
-					# 								'size' :	size,
-					# 								'type' :	tmp_type[i][j]})
 
 					sunburst[i]['children'][0]['children'][2]['children'].append({
 													'name' :	tmp_id[i][j],
-													'size' :	freespace,
+													'size' :	freespace_part,
 													'type' :	tmp_type[i][j]})
 
 		sunburst[i]['children'].append({'name' : 	'unused',
-										'size' :	(180 * 160) - summy})
+										'size' :	(WIDTH_MAP * HEIGHT_MAP) \
+													- summy})
 
 
 		sunburst[i]['children'].append({'name' : 		'build',
-							 'colour' :		'black',
-							'children' :	[{'name' :		'one_family',
+								'children' :	[{'name' :		'one_family',
 							 				  'colour' :	'yellow',
 											  'size' :		size_one_family},
 											 {'name' :		'bungalow',
@@ -288,8 +301,7 @@ def CSVtoJSON(algorithm):
 											  'size' :		size_bungalow},
 											 {'name' :		'mansion',
 											  'colour' :	'red',
-											  'size':	size_mansion}]})
-
+											  'size':		size_mansion}]})
 
 	JSON_algorithm = {'network' : 	network,
 					  'map' : 		colour_map,
@@ -306,4 +318,4 @@ def CSVtoJSON(algorithm):
 
 if __name__ == '__main__':
 
-	CSVtoJSON('hillclimber')
+	CSVtoJSON('tactical_hillclimber')

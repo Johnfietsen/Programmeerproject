@@ -318,3 +318,50 @@ The webpage looks a lot better now, and if the network update function is improv
 * Working tabs.
 * Update function network improved.
 * Information page.
+
+
+### Wednesday
+
+#### Done:
+* Working tabs.
+* Information page.
+* Data changed for sunburst.
+
+#### Not done but planned:
+* Update function network improved.
+
+#### Problems encountered:
+* There was something essentially wrong with the data for the sunburst, resulting in a sum of higher than 100% for the outer ring.
+
+#### Decisions:
+None.
+
+#### Comments:
+When calculating how much of the map was used as freespace for the houses, I didn't take into account that every piece of land can be used by multiple houses as freespace. This has been corrected.
+
+#### Todo's tomorrow:
+* Update function network improved.
+* Nicer design webpage.
+* Legend.
+* Stacked area chart.
+
+
+### Post-deadline
+
+#### Done:
+* Nicer design webpage.
+* Legend.
+
+#### Not done but planned:
+* Update function network improved.
+* Stacked area chart.
+
+#### Problems encountered:
+* I have no idea how to make the update function work. I have looked at every network update tutorial and stacked overflow question, asked a friend and placed my own question on stacked overflow but I still cannot make it work.
+* Due to lack of time, I didn't create the stacked area chart (I kept this for last since it was the least important visualisation).
+
+#### Decisions:
+None.
+
+#### Comments:
+I was sick so got an extension for the deadline.

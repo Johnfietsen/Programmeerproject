@@ -1,0 +1,89 @@
+<!--
+   University:		University of Amsterdam
+   Study:			Minor Programming
+   Course:			Programmeerproject
+   Name:			Luc Stefelmanns
+   Student nr.:		10669124
+
+   The webpage for the Force Move algorithm.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Amstelhaege Algorithms</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="../../libraries/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css " media="screen"/>
+
+	<script>
+	var algorithm = "force_move"
+	</script>
+
+	<script src="../../libraries/bootstrap-3.3.7-dist/js/bootstrap.min.js">
+	</script>
+
+	<script src="../../libraries/d3.js"></script>
+
+	<script src="../visualisers/main.js"></script>
+
+	<script src="../visualisers/slider.js"></script>
+
+	<script src="../visualisers/network.js"></script>
+
+	<script src="../visualisers/map.js"></script>
+
+	<!-- <script src="../visualisers/stacked_chart.js"></script> -->
+
+	<script src="../visualisers/sunburst.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="homepage.html">
+				AMSTELHAEGE ALGORITHMS
+			</a>
+		</div>
+		<ul class="nav navbar-nav">
+		<li><a href="hillclimber.html">Hillclimber</a></li>
+		<li><a href="tactical_hillclimber.html">Tactical Hillclimber</a></li>
+		<li class="active"><a href="force_move.html">Force Move</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+
+<div class="container">
+	<div class="row">
+    	<div class="col-lg-6" id="sliderDiv">
+    		<h3>Slider</h3>
+    	</div>
+	    <div class="col-lg-6" id="mapDiv">
+	    	<h3>Coloured map</h3>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12" id="legendDiv">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6" id="sunburstDiv">
+			<h3>Sunburst</h3>
+		</div>
+		<div class="col-lg-5" id="networkDiv">
+			<h3>Network</h3>
+		</div>
+		<div class="col-lg-1" id="dropdownDiv">
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

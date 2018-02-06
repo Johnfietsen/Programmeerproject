@@ -1,3 +1,13 @@
+/*
+ *  University:		University of Amsterdam
+ *  Study:			Minor Programming
+ *  Course:			Programmeerproject
+ *  Name:			Luc Stefelmanns
+ *  Student nr.:	10669124
+ *
+ * This script contains all the functions needed to create and update the
+ * sunburst.
+ */
 
 var formatNumber = d3.format(",d");
 
@@ -16,26 +26,6 @@ var arc = d3.arc()
 						return Math.max(0, Math.min(2 * Math.PI, x(d.x1))); })
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
-
-
-function clickZoom(d) {
-
-	var sunburstSVG = d3.select("body").select("#sunburst");
-
-  	sunburstSVG.transition()
-    			.duration(750)
-    			.tween("scale", function() {
-					    var xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
-					        yd = d3.interpolate(y.domain(), [d.y0, 1]),
-					        yr = d3.interpolate(y.range(), [d.y0 ? 20 : 0,
-															radiusSunburst]);
-					    return function(t) { x.domain(xd(t));
-											 y.domain(yd(t)).range(yr(t)); };
-					})
-    			.selectAll("path")
-      			.attrTween("d", function(d) {return arc(d); });
-	}
-
 
 
 function createSunburst(iteration, data) {
@@ -73,9 +63,7 @@ function createSunburst(iteration, data) {
 								d.data.name != "one_family" &&
 								d.data.name != "bungalow" &&
 								d.data.name != "mansion")
-								return clickLink(d.data.name);
-							else
-								return clickZoom(d); })
+								return clickLink(d.data.name); })
 	    			.append("title")
 	      			.text(function(d) {
 						return d.data.name + "\n" +
@@ -87,78 +75,52 @@ function createSunburst(iteration, data) {
 }
 
 
+// update map by joining data, updating and removing unnecessary elements
 function updateSunburst(data) {
 
 	var sunburstSVG = d3.select("#sunburst");
-
-	var t = d3.transition()
-    			.duration(10);
 
 	root = d3.hierarchy(data);
 	root.sum(function(d) { return d.size; });
 
 	var change = sunburstSVG.selectAll("path")
-				.data(partition(root).descendants())
+							.data(partition(root).descendants())
 
-	// JOIN new data with old elements.
-	// var change = sunburstSVG.selectAll("path")
-	// 						.data(data, function(d) { return d; });
-
-	// console.log("sunburst");
-	// console.log(change);
-
-
-	// UPDATE
-     // Update old elements as needed.
      change.attr("class", "update");
 
-     // ENTER
-     // Create new elements as needed.
-     //
-     // ENTER + UPDATE
-     // After merging the entered elements with the update selection,
-     // apply operations to both.
-     change.enter().append("path")
-         .attr("class", "enter")
-		 .merge(change)
-		 .attr("d", arc)
-		 .attr("transform", "translate(" + widthSunburst / 2 + ","
-										 + heightSunburst / 2 + ")")
-		 .attr("id", function(d) {
-								 return "sunburst" + d.data.name; })
-		 .style("stroke", "white")
-		 .style("stroke-width", "1px")
-		 .style("fill", function(d) {
-				 if (d.data.type == "one_family")
-					 return colourOneFamily(parseFloat(d.data.name));
-				 else if (d.data.type == "bungalow")
-					 return colourBungalow(parseFloat(d.data.name));
-				 else if (d.data.type == "mansion")
-					 return colourMansion(parseFloat(d.data.name));
-				 else
-					 return colour(d.data.name); })
-		 .on("click", function(d) {
-				 if (d.data.children == null &&
-					 d.data.name != "unused" &&
-					 d.data.name != "one_family" &&
-					 d.data.name != "bungalow" &&
-					 d.data.name != "mansion")
-					 return clickLink(d.data.name);
-				 else
-					 return clickZoom(d); })
-		 .append("title")
-		 .text(function(d) {
-			 return d.data.name + "\n" +
-					formatNumber(d.value / 288) + "%"; });
+	 change.enter().append("path")
+	         .attr("class", "enter")
+			 .merge(change)
+			 .attr("d", arc)
+			 .attr("transform", "translate(" + widthSunburst / 2 + ","
+											 + heightSunburst / 2 + ")")
+			 .attr("id", function(d) {
+									 return "sunburst" + d.data.name; })
+			 .style("stroke", "white")
+			 .style("stroke-width", "1px")
+			 .style("fill", function(d) {
+					 if (d.data.type == "one_family")
+						 return colourOneFamily(parseFloat(d.data.name));
+					 else if (d.data.type == "bungalow")
+						 return colourBungalow(parseFloat(d.data.name));
+					 else if (d.data.type == "mansion")
+						 return colourMansion(parseFloat(d.data.name));
+					 else
+						 return colour(d.data.name); })
+			 .on("click", function(d) {
+					 if (d.data.children == null &&
+						 d.data.name != "unused" &&
+						 d.data.name != "one_family" &&
+						 d.data.name != "bungalow" &&
+						 d.data.name != "mansion")
+						 return clickLink(d.data.name);
+					 else
+						 return clickZoom(d); })
+			 .append("title")
+			 .text(function(d) {
+				 return d.data.name + "\n" +
+						formatNumber(d.value / 288) + "%"; });
 
-
-       //   .attr("dy", ".35em")
-       //   .text(function(d) { return d; })
-       // .merge(text)
-       //   .attr("x", function(d, i) { return i * 32; });
-
-     // EXIT
-     // Remove old elements as needed.
      change.exit().remove();
 
 }

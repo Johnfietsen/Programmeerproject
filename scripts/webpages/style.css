@@ -1,6 +1,16 @@
+/*
+   University:		University of Amsterdam
+   Study:			Minor Programming
+   Course:			Programmeerproject
+   Name:			Luc Stefelmanns
+   Student nr.:		10669124
+
+   The style page.
+*/
+
 
 .ticks {
-  font: 10px sans-serif;
+  font: 50px sans-serif;
 }
 
 .track,
@@ -17,7 +27,7 @@
 
 .track-inset {
   stroke: #ddd;
-  stroke-width: 8px;
+  stroke-width: 100px;
 }
 
 .track-overlay {
@@ -39,3 +49,28 @@
 }
 
 .body {font-family: 'Verdana';}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #000000;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #000000 !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
